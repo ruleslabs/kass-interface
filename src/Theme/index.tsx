@@ -55,16 +55,56 @@ export const TYPE = {
 }
 
 export const ThemedGlobalStyle = createGlobalStyle`
-  html {
-    color: ${({ theme }) => theme.primary1};
-    background-color: ${({ theme }) => theme.bg1} !important;
+  @import url('https://rsms.me/inter/inter.css');
+
+  * {
+    font-family: 'Inter', sans-serif;
   }
 
-  summary::-webkit-details-marker {
-    display:none;
+  @supports (font-variation-settings: normal) {
+    * {
+      font-family: 'Inter var', sans-serif;
+    }
   }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 16px;
+    font-variant: none;
+    color: 'black';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    height: 100%;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  html {
+    background-color: ${({ theme }) => theme.bg1};
+  }
+
+  // elements
 
   a {
+    text-decoration: none;
     color: ${({ theme }) => theme.primary1};
+
+    :hover {
+      text-decoration: none
+    }
+  }
+
+  button {
+    user-select: none;
   }
 `
