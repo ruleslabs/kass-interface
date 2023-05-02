@@ -1,6 +1,8 @@
+import './theme/css/global.css'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ThemeProvider, { ThemedGlobalStyle } from './Theme'
+
 import App from './App'
 
 interface ContextProvidersProps {
@@ -18,12 +20,7 @@ function Updaters() {
 ReactDOM.render(
   <ContextProviders>
     <Updaters />
-    <ThemeProvider>
-      <>
-        <ThemedGlobalStyle />
-        <App />
-      </>
-    </ThemeProvider>
+    <App />
   </ContextProviders>,
   document.getElementById('root')
 )
