@@ -45,8 +45,7 @@ const themeContractValues = {
     heading: null,
   },
   shadows: {
-    smallAccentDark: null,
-    smallAccentDarker: null,
+    none: null,
   },
 }
 
@@ -161,8 +160,8 @@ const colors = {
 
 createGlobalTheme(':root', vars, {
   color: {
-    transparent: colors.gray50,
-    none: colors.gray50,
+    transparent: colors.transparent,
+    none: colors.none,
 
     text1: colors.gray50,
     text2: colors.gray500,
@@ -203,7 +202,6 @@ createGlobalTheme(':root', vars, {
     heading: 'montserrat, sans-serif',
   },
   shadows: {
-    smallAccentDark: `0 0 0 1pt ${vars.color.accentDark}`,
-    smallAccentDarker: `0 0 0 1pt ${vars.color.accentDarker}`,
+    none: 'none',
   },
 })

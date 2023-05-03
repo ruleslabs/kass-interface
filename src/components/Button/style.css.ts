@@ -23,10 +23,13 @@ export const PrimaryButton = style([
       focus: 'accentDarker',
       active: 'accentDarker',
     },
-    boxShadow: {
-      hover: 'smallAccentDark',
-      focus: 'smallAccentDarker',
-      active: 'smallAccentDarker',
+    outlineStyle: 'solid',
+    outlineWidth: '1px',
+    outlineColor: {
+      default: 'transparent',
+      hover: 'accentDark',
+      focus: 'accentDarker',
+      active: 'accentDarker',
     },
     color: 'text1',
   }),

@@ -115,6 +115,7 @@ const colorStyles = defineProperties({
     borderLeftColor: vars.color,
     borderBottomColor: vars.color,
     borderTopColor: vars.color,
+
     outlineColor: vars.color,
 
     fill: vars.color,
@@ -145,6 +146,10 @@ const unresponsiveProperties = defineProperties({
     borderWidth,
     borderBottomWidth: borderWidth,
     borderTopWidth: borderWidth,
+
+    outline: vars.border,
+    outlineWidth: borderWidth,
+    outlineStyle: borderStyle,
 
     fontFamily: vars.fonts,
 

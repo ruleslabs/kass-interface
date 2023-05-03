@@ -1,9 +1,9 @@
 import Logo from 'src/assets/logo-white.svg'
-import Search from '../Search'
 import * as styles from './style.css'
 import { PrimaryButton } from '../Button/style.css'
 import { Row } from 'src/theme/components/Flex'
 import Box from 'src/theme/components/Box'
+import SearchBar from '../SearchBar'
 
 export default function NavBar() {
   return (
@@ -14,7 +14,7 @@ export default function NavBar() {
         </Box>
 
         <Box className={styles.searchContainer}>
-          <Search />
+          <SearchBar />
         </Box>
 
         <Box className={styles.rightSideContainer}>
