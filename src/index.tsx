@@ -1,7 +1,7 @@
 import './theme/css/global.css'
 
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 
 import App from './App'
 
@@ -17,10 +17,10 @@ function Updaters() {
   return <></>
 }
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root')!)
+root.render(
   <ContextProviders>
     <Updaters />
     <App />
-  </ContextProviders>,
-  document.getElementById('root')
+  </ContextProviders>
 )

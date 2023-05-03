@@ -1,4 +1,4 @@
-import * as styles from './index.css'
+import * as styles from './style.css'
 
 export default function Search() {
   return (

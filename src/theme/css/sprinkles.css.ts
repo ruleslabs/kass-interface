@@ -38,6 +38,7 @@ const layoutStyles = defineProperties({
     flexDirection: ['row', 'column', 'column-reverse'],
     justifyContent: flexAlignment,
     flex: ['1', '1.5', '2', '3'],
+    flexShrink: ['1', '1.5', '2', '3'],
     flexWrap: ['nowrap', 'wrap', 'wrap-reverse'],
 
     fontSize: vars.fontSize,
@@ -158,3 +159,4 @@ const unresponsiveProperties = defineProperties({
 })
 
 export const sprinkles = createSprinkles(layoutStyles, colorStyles, unresponsiveProperties)
+export type Sprinkles = Parameters<typeof sprinkles>[0]
