@@ -1,18 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 
 import * as styles from './style.css'
-import { PrimaryButton } from '../Button/style.css'
 import { Row } from 'src/theme/components/Flex'
 import Box from 'src/theme/components/Box'
 import SearchBar from '../SearchBar'
 import * as Icons from 'src/theme/components/Icons'
-import ConnectWallet from '../Wallet/Connect'
-import { useReducer } from 'react'
+import Web3Status from '../Web3Status'
 
 export default function NavBar() {
   const navigate = useNavigate()
-
-  const [showWalletConnection, toggleWalletConnection] = useReducer((state) => !state, false)
 
   return (
     <nav className={styles.Nav}>
@@ -28,13 +24,9 @@ export default function NavBar() {
         </Box>
 
         <Box className={styles.rightSideContainer}>
-          <Box as={'button'} className={PrimaryButton} onClick={toggleWalletConnection}>
-            Connect wallet
-          </Box>
+          <Web3Status />
         </Box>
       </Row>
-
-      {showWalletConnection && <ConnectWallet close={toggleWalletConnection} />}
     </nav>
   )
 }
