@@ -5,6 +5,8 @@ const themeContractValues = {
   color: {
     transparent: null,
     none: null,
+    white: null,
+    black: null,
 
     text1: null,
     text2: null,
@@ -28,6 +30,7 @@ const themeContractValues = {
   fontSize: {
     '0': null,
     '16': null,
+    '18': null,
   },
   fontWeight: {
     normal: null,
@@ -160,8 +163,13 @@ const colors = {
 
 createGlobalTheme(':root', vars, {
   color: {
-    transparent: colors.transparent,
-    none: colors.none,
+    ...Object
+      .keys(colors)
+      .filter((key) => (themeContractValues.color as any)[key] === null)
+      .reduce((acc: any, key) => {
+        acc[key] = (colors as any)[key]
+        return acc
+      }, {}),
 
     text1: colors.gray50,
     text2: colors.gray500,
@@ -185,6 +193,7 @@ createGlobalTheme(':root', vars, {
   fontSize: {
     '0': '0',
     '16': '16px',
+    '18': '18px',
   },
   fontWeight: {
     normal: '400',

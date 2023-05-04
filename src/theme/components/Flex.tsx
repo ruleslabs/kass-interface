@@ -7,3 +7,9 @@ export const Row = React.forwardRef((props: BoxProps, ref: React.ForwardedRef<HT
 })
 
 Row.displayName = 'Row'
+
+export const Column = React.forwardRef((props: BoxProps, ref: React.ForwardedRef<HTMLElement>) => {
+  return <Box ref={ref} display={'flex'} flexDirection={'column'} {...props} />
+})
+
+Column.displayName = 'Row'
