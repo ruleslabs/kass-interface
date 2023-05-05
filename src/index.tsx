@@ -6,6 +6,8 @@ import Web3Provider from './components/Web3Provider'
 
 import App from './App'
 
+window.Buffer = window.Buffer || require("buffer").Buffer
+
 const root = createRoot(document.getElementById('root')!)
 root.render(
   <Web3Provider>

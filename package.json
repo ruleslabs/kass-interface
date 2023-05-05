@@ -19,6 +19,7 @@
     "@web3-react/network": "^8.2.0",
     "@web3-react/types": "^8.2.0",
     "@web3-react/walletconnect": "^8.2.0",
+    "buffer": "^6.0.3",
     "clsx": "^1.2.1",
     "ms.macro": "^2.0.0",
     "polished": "^4.2.2",
