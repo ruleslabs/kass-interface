@@ -4,15 +4,19 @@ import { useBoundStore } from 'src/state'
 import { Connection } from 'src/connections'
 import { didUserReject } from 'src/connections/utils'
 import { ActivationStatus } from 'src/state/l1Wallet'
+import { shallow } from 'zustand/shallow'
 
 export function useTryActivation() {
-  const {
-    setActivationStatus,
-    setActivationConnection,
-    setActivationError,
-    resetActivationState,
-    selectWallet,
-  } = useBoundStore()
+  const { setStatus, setConnection, setError, reset, selectWallet } = useBoundStore(
+    (state) => ({
+      setStatus: state.setl1WalletActivationStatus,
+      setConnection: state.setl1WalletActivationConnection,
+      setError: state.setl1WalletActivationError,
+      reset: state.resetl1WalletActivationState,
+      selectWallet: state.selectWallet,
+    }),
+    shallow
+  )
 
   return useCallback(
     async (connection: Connection, onSuccess: () => void) => {
@@ -21,8 +25,8 @@ export function useTryActivation() {
       if (connection.overrideActivate?.()) return
 
       try {
-        setActivationStatus(ActivationStatus.PENDING)
-        setActivationConnection(connection)
+        setStatus(ActivationStatus.PENDING)
+        setConnection(connection)
 
         console.debug(`Connection activating: ${connection.getName()}`)
         await connection.connector.activate()
@@ -31,7 +35,7 @@ export function useTryActivation() {
         selectWallet(connection.type)
 
         // Clears pending connection state
-        resetActivationState()
+        reset()
 
         onSuccess()
       } catch (error) {
@@ -41,24 +45,42 @@ export function useTryActivation() {
 
         // Gracefully handles errors from the user rejecting a connection attempt
         if (didUserReject(connection, error)) {
-          resetActivationState()
+          reset()
           return
         }
 
         // Failed Connection events are logged here, while successful ones are logged by Web3Provider
-        setActivationStatus(ActivationStatus.ERROR)
-        setActivationError(error)
+        setStatus(ActivationStatus.ERROR)
+        setError(error)
       }
     },
-    []
+    [setStatus, setConnection, setError, reset, selectWallet]
   )
 }
 
-export function useCancelActivation() {
-  const { status, connection, resetActivationState } = useBoundStore()
+function useCancelActivation() {
+  const { connection, reset } = useBoundStore(
+    (state) => ({ connection: state.l1WalletActivationConnection, reset: state.resetl1WalletActivationState }),
+    shallow
+  )
 
   return useCallback(() => {
     connection?.connector.deactivate?.()
-    resetActivationState()
-  }, [status])
+    reset()
+  }, [connection?.type, reset])
+}
+
+export function useActivationState() {
+  const activationState = useBoundStore(
+    (state) => ({
+      status: state.l1WalletActivationStatus,
+      connection: state.l1WalletActivationConnection,
+      error: state.l1WalletActivationError,
+    }),
+    shallow
+  )
+  const tryActivation = useTryActivation()
+  const cancelActivation = useCancelActivation()
+
+  return { activationState, tryActivation, cancelActivation }
 }

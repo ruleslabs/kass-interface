@@ -1,7 +1,7 @@
-import Box from './Box'
+import Box, { BoxProps } from './Box'
 import { sprinkles } from '../css/sprinkles.css'
 
-export const Body = (props: any) =>
+export const Body = (props: BoxProps) =>
   <Box
     className={sprinkles({
       fontWeight: 'normal',
@@ -11,7 +11,21 @@ export const Body = (props: any) =>
     {...props}
   />
 
-export const HeadlineSmall = (props: any) =>
+export const Link = (props: BoxProps) =>
+  <Box
+    className={sprinkles({
+      fontWeight: 'normal',
+      color: 'text1',
+      fontSize: '16',
+      cursor: 'pointer',
+      textDecoration: {
+        hover: 'underline',
+      },
+    })}
+    {...props}
+  />
+
+export const HeadlineSmall = (props: BoxProps) =>
   <Box
     className={sprinkles({
       fontWeight: 'medium',

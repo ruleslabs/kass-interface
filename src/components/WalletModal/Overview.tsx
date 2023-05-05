@@ -1,27 +1,54 @@
+import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import { shallow } from 'zustand/shallow'
 
 import Overlay from '../Modal/Overlay'
 import Portal from '../common/Portal'
 import Content from '../Modal/Content'
 import { useBoundStore } from 'src/state'
-import { ModalType } from 'src/state/application'
+import { SupportedChainId } from 'src/constants/chains'
+import { getChainInfo } from 'src/constants/chainInfo'
+import Box from 'src/theme/components/Box'
+import { SecondaryButton } from '../Button/style.css'
+import { useWalletOverviewModal } from 'src/hooks/useModal'
 
-export default function WalletOverviewModal() {
+interface WalletOverviewModalProps {
+  chainId: SupportedChainId
+}
+
+export default function WalletOverviewModal({ chainId }: WalletOverviewModalProps) {
   // modal
-  const { isModalOpened, toggleWalletOverviewModal } = useBoundStore()
-  const isOpen = isModalOpened(ModalType.WALLET_OVERVIEW)
+  const [isOpen, toggle] = useWalletOverviewModal()
 
-  const { account } = useWeb3React()
+  // deactivation
+  const { connector } = useWeb3React()
+  const selectWallet = useBoundStore((state) => state.selectWallet, shallow)
 
-  if (!isOpen) return null
+  const disconnect = useCallback(() => {
+    if (connector && connector.deactivate) {
+      connector.deactivate()
+    }
+    connector.resetState()
+
+    selectWallet()
+
+    toggle()
+  }, [connector, selectWallet, toggle])
+
+  // chain infos
+  const chainInfo = getChainInfo(chainId)
+
+  if (!isOpen || !chainInfo) return null
 
   return (
     <Portal>
-      <Content title={'Your wallet'} close={toggleWalletOverviewModal}>
-        <h1>{account}</h1>
+      <Content title={`${chainInfo.label} wallet`} close={toggle}>
+        <Box as={'button'} className={SecondaryButton} onClick={disconnect}>
+          Disconnect
+        </Box>
       </Content>
 
-      <Overlay onClick={toggleWalletOverviewModal} />
+      <Overlay onClick={toggle} />
     </Portal>
   )
 }

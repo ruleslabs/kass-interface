@@ -152,6 +152,7 @@ const unresponsiveProperties = defineProperties({
     outlineStyle: borderStyle,
 
     fontFamily: vars.fonts,
+    textDecoration: ['none', 'underline'],
 
     overflow,
     overflowX: overflow,

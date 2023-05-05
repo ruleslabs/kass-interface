@@ -10,24 +10,28 @@ export enum ActivationStatus {
 }
 
 export interface L1WalletSlice {
-  status: ActivationStatus
-  connection?: Connection
-  error?: any
+  l1WalletActivationStatus: ActivationStatus | null
+  l1WalletActivationConnection: Connection | null
+  l1WalletActivationError: any | null
 
-  setActivationStatus: (status: ActivationStatus) => void
-  setActivationConnection: (connection: Connection) => void
-  setActivationError: (error: any) => void
-  resetActivationState: () => void
+  setl1WalletActivationStatus: (status: ActivationStatus) => void
+  setl1WalletActivationConnection: (connection: Connection) => void
+  setl1WalletActivationError: (error: any) => void
+  resetl1WalletActivationState: () => void
 }
 
-const IDLE_ACTIVATION_STATE = { status: ActivationStatus.IDLE, connection: undefined, error: undefined }
+const IDLE_ACTIVATION_STATE = {
+  l1WalletActivationStatus: ActivationStatus.IDLE,
+  l1WalletActivationConnection: null,
+  l1WalletActivationError: null,
+}
 
 export const createL1WalletSlice: StateCreator<StoreState, [], [], L1WalletSlice> =
   (set) => ({
-    status: ActivationStatus.IDLE,
+    ...IDLE_ACTIVATION_STATE,
 
-    setActivationStatus: (status) => set({ status }),
-    setActivationConnection: (connection) => set({ connection }),
-    setActivationError: (error) => set({ error }),
-    resetActivationState: () => set(IDLE_ACTIVATION_STATE),
+    setl1WalletActivationStatus: (status) => set({ l1WalletActivationStatus: status }),
+    setl1WalletActivationConnection: (connection) => set({ l1WalletActivationConnection: connection }),
+    setl1WalletActivationError: (error) => set({ l1WalletActivationError: error }),
+    resetl1WalletActivationState: () => set(IDLE_ACTIVATION_STATE),
   })

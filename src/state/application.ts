@@ -8,24 +8,20 @@ export enum ModalType {
 }
 
 export interface ApplicationSlice {
-  modal?: ModalType
+  modal: ModalType | null
 
   isModalOpened: (modal: ModalType) => boolean
   openModal: (modal: ModalType) => void
   closeModals: () => void
-  toggleWalletConnectModal: () => void
-  toggleWalletOverviewModal: () => void
+  toggleModal: (modal: ModalType) => void
 }
 
 export const createApplicationSlice: StateCreator<StoreState, [], [], ApplicationSlice> =
-  (set, get) => {
-    const toggleModal = (modal: ModalType) => set((state) => ({ modal: modal === state.modal ? undefined : modal }))
+  (set, get) => ({
+      modal: null,
 
-    return {
       isModalOpened: (modal) => get().modal === modal,
       openModal: (modal) => set({ modal }),
-      closeModals: () => set({ modal: undefined }),
-      toggleWalletConnectModal: () => toggleModal(ModalType.WALLET_CONNECT),
-      toggleWalletOverviewModal: () => toggleModal(ModalType.WALLET_OVERVIEW),
-    }
-  }
+      closeModals: () => set({ modal: null }),
+      toggleModal: (modal: ModalType) => set((state) => ({ modal: modal === state.modal ? null : modal })),
+  })

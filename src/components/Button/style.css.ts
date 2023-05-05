@@ -40,6 +40,14 @@ export const SecondaryButton = style([
     background: 'transparent',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: 'text1',
+    borderColor: {
+      default: 'text2',
+      hover: 'text1',
+    },
+    color: {
+      default: 'text2',
+      hover: 'text1',
+    },
+    transitionDuration: '125',
   }),
 ])
