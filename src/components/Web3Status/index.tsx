@@ -1,24 +1,34 @@
 import { useWeb3React } from '@web3-react/core'
+import { useAccount } from '@starknet-react/core'
 
 import Box from 'src/theme/components/Box'
 import { PrimaryButton, SecondaryButton } from '../Button/style.css'
 import WalletConnectModal from '../WalletModal/Connect'
-import { shortenL1Address } from 'src/utils/address'
-import WalletOverviewModal from '../WalletModal/Overview'
-import { useWalletConnectModal, useWalletOverviewModal } from 'src/hooks/useModal'
+import { shortenL1Address, shortenL2Address } from 'src/utils/address'
+import { useWalletConnectModal, useL1WalletOverviewModal, useL2WalletOverviewModal } from 'src/hooks/useModal'
+import { Row } from 'src/theme/components/Flex'
+import { L1WalletOverviewModal, L2WalletOverviewModal } from '../WalletModal/Overview'
 
 export function Web3StatusContent() {
-  const { account } = useWeb3React()
+  const { account: l1Account } = useWeb3React()
+  const { address: l2Account } = useAccount()
 
   // modal
   const [, toggleWalletConnectModal] = useWalletConnectModal()
-  const [, toggleWalletOverviewModal] = useWalletOverviewModal()
+  const [, toggleL1WalletOverviewModal] = useL1WalletOverviewModal()
+  const [, toggleL2WalletOverviewModal] = useL2WalletOverviewModal()
 
-  if (account) {
+  if (l1Account && l2Account) {
     return (
-      <Box as={'button'} className={SecondaryButton} onClick={toggleWalletOverviewModal}>
-        {shortenL1Address(account)}
-      </Box>
+      <Row gap={'8'}>
+        <Box as={'button'} className={SecondaryButton} onClick={toggleL2WalletOverviewModal}>
+          {shortenL2Address(l2Account)}
+        </Box>
+
+        <Box as={'button'} className={SecondaryButton} onClick={toggleL1WalletOverviewModal}>
+          {shortenL1Address(l1Account)}
+        </Box>
+      </Row>
     )
   } else {
     return (
@@ -35,7 +45,8 @@ export default function Web3Status() {
       <Web3StatusContent />
 
       <WalletConnectModal />
-      <WalletOverviewModal chainId={1} />
+      <L1WalletOverviewModal />
+      <L2WalletOverviewModal />
     </>
   )
 }

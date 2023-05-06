@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Connector } from '@web3-react/types'
 
-import { Connection, networkConnection, useGetConnection } from 'src/connections'
+import { L1Connection, networkConnection, useGetL1Connection } from 'src/connections'
 import { useBoundStore } from 'src/state'
 
 async function connect(connector: Connector) {
@@ -17,15 +17,20 @@ async function connect(connector: Connector) {
 }
 
 export default function useEagerlyConnect() {
-  const { selectedWallet, selectWallet } = useBoundStore()
-  const getConnection = useGetConnection()
+  useL1EagerlyConnect()
+  useL2EagerlyConnect()
+}
 
-  let selectedConnection: Connection | undefined
-  if (selectedWallet) {
+function useL1EagerlyConnect() {
+  const { selectedL1Wallet, selectL1Wallet } = useBoundStore()
+  const getConnection = useGetL1Connection()
+
+  let selectedConnection: L1Connection | undefined
+  if (selectedL1Wallet) {
     try {
-      selectedConnection = getConnection(selectedWallet)
+      selectedConnection = getConnection(selectedL1Wallet)
     } catch {
-      selectWallet()
+      selectL1Wallet()
     }
   }
 
@@ -36,4 +41,9 @@ export default function useEagerlyConnect() {
       connect(selectedConnection.connector)
     } // The dependency list is empty so this is only run once on mount
   }, [])
+}
+
+function useL2EagerlyConnect() {
+  // TODO: impl L2 eagerly connection
+  return
 }

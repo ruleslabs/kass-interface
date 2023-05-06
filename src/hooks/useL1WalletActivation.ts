@@ -1,25 +1,25 @@
 import { useCallback } from 'react'
 
 import { useBoundStore } from 'src/state'
-import { Connection } from 'src/connections'
+import { L1Connection } from 'src/connections'
 import { didUserReject } from 'src/connections/utils'
 import { ActivationStatus } from 'src/state/l1Wallet'
 import { shallow } from 'zustand/shallow'
 
-export function useTryActivation() {
-  const { setStatus, setConnection, setError, reset, selectWallet } = useBoundStore(
+export function useTryL1Activation() {
+  const { setStatus, setConnection, setError, reset, selectL1Wallet } = useBoundStore(
     (state) => ({
       setStatus: state.setl1WalletActivationStatus,
       setConnection: state.setl1WalletActivationConnection,
       setError: state.setl1WalletActivationError,
       reset: state.resetl1WalletActivationState,
-      selectWallet: state.selectWallet,
+      selectL1Wallet: state.selectL1Wallet,
     }),
     shallow
   )
 
   return useCallback(
-    async (connection: Connection, onSuccess: () => void) => {
+    async (connection: L1Connection, onSuccess: () => void) => {
       // Skips wallet connection if the connection should override the default
       // behavior, i.e. install MetaMask or launch Coinbase app
       if (connection.overrideActivate?.()) return
@@ -32,7 +32,7 @@ export function useTryActivation() {
         await connection.connector.activate()
 
         console.debug(`Connection activated: ${connection.getName()}`)
-        selectWallet(connection.type)
+        selectL1Wallet(connection.type)
 
         // Clears pending connection state
         reset()
@@ -54,11 +54,11 @@ export function useTryActivation() {
         setError(error)
       }
     },
-    [setStatus, setConnection, setError, reset, selectWallet]
+    [setStatus, setConnection, setError, reset, selectL1Wallet]
   )
 }
 
-function useCancelActivation() {
+function useCancelL1Activation() {
   const { connection, reset } = useBoundStore(
     (state) => ({ connection: state.l1WalletActivationConnection, reset: state.resetl1WalletActivationState }),
     shallow
@@ -70,7 +70,7 @@ function useCancelActivation() {
   }, [connection?.type, reset])
 }
 
-export function useActivationState() {
+export function useL1ActivationState() {
   const activationState = useBoundStore(
     (state) => ({
       status: state.l1WalletActivationStatus,
@@ -79,8 +79,8 @@ export function useActivationState() {
     }),
     shallow
   )
-  const tryActivation = useTryActivation()
-  const cancelActivation = useCancelActivation()
+  const tryActivation = useTryL1Activation()
+  const cancelActivation = useCancelL1Activation()
 
   return { activationState, tryActivation, cancelActivation }
 }

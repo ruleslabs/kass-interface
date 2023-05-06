@@ -19,4 +19,6 @@ interface Window {
     autoRefreshOnNetworkChange?: boolean
   }
   web3?: Record<string, unknown>
+  starknet_argentX?: any,
+  starknet_braavos?: any,
 }

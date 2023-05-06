@@ -4,12 +4,15 @@ import { ConnectionType } from 'src/connections'
 import { StoreState } from './index'
 
 export interface UserSlice {
-  selectedWallet?: ConnectionType
+  selectedL1Wallet?: ConnectionType
+  selectedL2Wallet?: ConnectionType
 
-  selectWallet: (selectedWallet?: ConnectionType) => void
+  selectL1Wallet: (selectedL1Wallet?: ConnectionType) => void
+  selectL2Wallet: (selectedL2Wallet?: ConnectionType) => void
 }
 
 export const createUserSlice: StateCreator<StoreState, [], [], UserSlice> =
   (set) => ({
-    selectWallet: (selectedWallet) => set({ selectedWallet }),
+    selectL1Wallet: (selectedL1Wallet) => set({ selectedL1Wallet }),
+    selectL2Wallet: (selectedL2Wallet) => set({ selectedL2Wallet }),
   })

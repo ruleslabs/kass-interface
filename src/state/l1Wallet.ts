@@ -1,6 +1,6 @@
 import { StateCreator } from 'zustand'
 
-import { Connection } from 'src/connections'
+import { L1Connection } from 'src/connections'
 import { StoreState } from './index'
 
 export enum ActivationStatus {
@@ -11,11 +11,11 @@ export enum ActivationStatus {
 
 export interface L1WalletSlice {
   l1WalletActivationStatus: ActivationStatus | null
-  l1WalletActivationConnection: Connection | null
+  l1WalletActivationConnection: L1Connection | null
   l1WalletActivationError: any | null
 
   setl1WalletActivationStatus: (status: ActivationStatus) => void
-  setl1WalletActivationConnection: (connection: Connection) => void
+  setl1WalletActivationConnection: (connection: L1Connection) => void
   setl1WalletActivationError: (error: any) => void
   resetl1WalletActivationState: () => void
 }

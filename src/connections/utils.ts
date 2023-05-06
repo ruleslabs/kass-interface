@@ -1,6 +1,13 @@
+import { isMobile } from 'src/utils/userAgent'
 import { Connection, ConnectionType } from './index'
 
+// misc
+
 export const getIsInjected = () => Boolean(window.ethereum)
+
+export const getIsGenericInjector = () => getIsInjected() && !getIsMetaMaskWallet() && !getIsCoinbaseWallet()
+
+// wallet
 
 // When using Brave browser, `isMetaMask` is set to true when using the built-in wallet
 // This variable should be true only when using the MetaMask extension
@@ -11,6 +18,26 @@ export const getIsMetaMaskWallet = () =>
   Boolean(window.ethereum?.isMetaMask && !allNonMetamaskFlags.some((flag) => window.ethereum?.[flag]))
 
 export const getIsCoinbaseWallet = () => Boolean(window.ethereum?.isCoinbaseWallet)
+
+export const getIsArgentXWallet = () => Boolean(window.starknet_argentX)
+
+export const getIsBraavosWallet = () => Boolean(window.starknet_braavos)
+
+// browser
+
+export const getIsCoinbaseWalletBrowser = () => isMobile && getIsCoinbaseWallet()
+
+export const getIsMetaMaskBrowser = () => isMobile && getIsMetaMaskWallet()
+
+export const getIsInjectedMobileBrowser = () => getIsCoinbaseWalletBrowser() || getIsMetaMaskBrowser()
+
+// advertise
+
+export const getShouldAdvertiseMetaMask = () => !getIsMetaMaskWallet()
+
+export const getShouldAdvertiseArgentX = () => !getIsArgentXWallet() && !isMobile
+
+export const getShouldAdvertiseBraavos = () => !getIsBraavosWallet()
 
 // https://eips.ethereum.org/EIPS/eip-1193#provider-errors
 export enum ErrorCode {

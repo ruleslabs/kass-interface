@@ -1,7 +1,7 @@
 import { deepCopy } from '@ethersproject/properties'
 // This is the only file which should instantiate new Providers.
 import { StaticJsonRpcProvider } from '@ethersproject/providers'
-import { SupportedChainId } from './chains'
+import { EthereumChainId } from './chains'
 
 import { AVERAGE_L1_BLOCK_TIME } from './chainInfo'
 import { CHAIN_IDS_TO_NAMES } from './chains'
@@ -19,7 +19,7 @@ class AppJsonRpcProvider extends StaticJsonRpcProvider {
     return this._blockCache
   }
 
-  constructor(chainId: SupportedChainId) {
+  constructor(chainId: EthereumChainId) {
     // Including networkish allows ethers to skip the initial detectNetwork call.
     super(RPC_URLS[chainId][0], /* networkish= */ { chainId, name: CHAIN_IDS_TO_NAMES[chainId] })
 
@@ -56,7 +56,7 @@ class AppJsonRpcProvider extends StaticJsonRpcProvider {
 /**
  * These are the only JsonRpcProviders used directly by the interface.
  */
-export const RPC_PROVIDERS: { [key in SupportedChainId]: StaticJsonRpcProvider } = {
-  [SupportedChainId.MAINNET]: new AppJsonRpcProvider(SupportedChainId.MAINNET),
-  [SupportedChainId.GOERLI]: new AppJsonRpcProvider(SupportedChainId.GOERLI),
+export const RPC_PROVIDERS: { [key in EthereumChainId]: StaticJsonRpcProvider } = {
+  [EthereumChainId.MAINNET]: new AppJsonRpcProvider(EthereumChainId.MAINNET),
+  [EthereumChainId.GOERLI]: new AppJsonRpcProvider(EthereumChainId.GOERLI),
 }

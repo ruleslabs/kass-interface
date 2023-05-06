@@ -7,7 +7,7 @@ import { ApplicationSlice, createApplicationSlice } from './application'
 
 export type StoreState = L1WalletSlice & UserSlice & ApplicationSlice
 
-const PERSISTING_KEYS: (keyof StoreState)[] = ['selectedWallet']
+const PERSISTING_KEYS: (keyof StoreState)[] = ['selectedL1Wallet']
 
 export const useBoundStore = create<StoreState>()(
   persist(

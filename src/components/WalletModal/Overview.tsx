@@ -6,23 +6,47 @@ import Overlay from '../Modal/Overlay'
 import Portal from '../common/Portal'
 import Content from '../Modal/Content'
 import { useBoundStore } from 'src/state'
-import { SupportedChainId } from 'src/constants/chains'
 import { getChainInfo } from 'src/constants/chainInfo'
 import Box from 'src/theme/components/Box'
 import { SecondaryButton } from '../Button/style.css'
-import { useWalletOverviewModal } from 'src/hooks/useModal'
+import { useL1WalletOverviewModal, useL2WalletOverviewModal, useCloseModal } from 'src/hooks/useModal'
+import { useAccount, useConnectors } from '@starknet-react/core'
 
 interface WalletOverviewModalProps {
-  chainId: SupportedChainId
+  chainLabel?: string
+  disconnect: () => void
 }
 
-export default function WalletOverviewModal({ chainId }: WalletOverviewModalProps) {
+function WalletOverviewModal({ chainLabel, disconnect }: WalletOverviewModalProps) {
   // modal
-  const [isOpen, toggle] = useWalletOverviewModal()
+  const close = useCloseModal()
 
-  // deactivation
+  // disconnect
+  const disconnectAndClose = useCallback(() => {
+    disconnect()
+    close()
+  }, [disconnect, close])
+
+  return (
+    <Portal>
+      <Content title={`${chainLabel} wallet`} close={disconnectAndClose}>
+        <Box as={'button'} className={SecondaryButton} onClick={disconnectAndClose}>
+          Disconnect
+        </Box>
+      </Content>
+
+      <Overlay onClick={close} />
+    </Portal>
+  )
+}
+
+export function L1WalletOverviewModal() {
+  // modal
+  const [isOpen] = useL1WalletOverviewModal()
+
+  // disconnect
   const { connector } = useWeb3React()
-  const selectWallet = useBoundStore((state) => state.selectWallet, shallow)
+  const selectL1Wallet = useBoundStore((state) => state.selectL1Wallet, shallow)
 
   const disconnect = useCallback(() => {
     if (connector && connector.deactivate) {
@@ -30,25 +54,36 @@ export default function WalletOverviewModal({ chainId }: WalletOverviewModalProp
     }
     connector.resetState()
 
-    selectWallet()
-
-    toggle()
-  }, [connector, selectWallet, toggle])
+    selectL1Wallet()
+  }, [connector, selectL1Wallet])
 
   // chain infos
+  const { chainId } = useWeb3React()
   const chainInfo = getChainInfo(chainId)
 
-  if (!isOpen || !chainInfo) return null
+  if (!isOpen) return null
 
-  return (
-    <Portal>
-      <Content title={`${chainInfo.label} wallet`} close={toggle}>
-        <Box as={'button'} className={SecondaryButton} onClick={disconnect}>
-          Disconnect
-        </Box>
-      </Content>
+  return <WalletOverviewModal chainLabel={chainInfo?.label} disconnect={disconnect} />
+}
 
-      <Overlay onClick={toggle} />
-    </Portal>
-  )
+export function L2WalletOverviewModal() {
+  // modal
+  const [isOpen] = useL2WalletOverviewModal()
+
+  // disconnect
+  const selectL2Wallet = useBoundStore((state) => state.selectL2Wallet, shallow)
+  const { disconnect: disconnectConnector } = useConnectors()
+
+  const disconnect = useCallback(() => {
+    disconnectConnector()
+    selectL2Wallet()
+  }, [disconnectConnector, selectL2Wallet])
+
+  // chain infos
+  const { account } = useAccount()
+  const chainInfo = getChainInfo(account?.chainId)
+
+  if (!isOpen) return null
+
+  return <WalletOverviewModal chainLabel={chainInfo?.label} disconnect={disconnect} />
 }
