@@ -42,7 +42,7 @@ export function StarknetProvider({ children }: StarknetProviderProps) {
   const key = useMemo(() => connections.map((connection) => connection.getName()).join('-'), [connections])
 
   return (
-    <StarknetConfig connectors={connectors} key={key}>
+    <StarknetConfig connectors={connectors} key={key} autoConnect>
       {children}
     </StarknetConfig>
   )

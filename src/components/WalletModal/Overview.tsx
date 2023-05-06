@@ -69,13 +69,7 @@ export function L2WalletOverviewModal() {
   const [isOpen] = useL2WalletOverviewModal()
 
   // disconnect
-  const selectL2Wallet = useBoundStore((state) => state.selectL2Wallet, shallow)
-  const { disconnect: disconnectConnector } = useConnectors()
-
-  const disconnect = useCallback(() => {
-    disconnectConnector()
-    selectL2Wallet()
-  }, [disconnectConnector, selectL2Wallet])
+  const { disconnect } = useConnectors()
 
   // chain infos
   const { account } = useAccount()
