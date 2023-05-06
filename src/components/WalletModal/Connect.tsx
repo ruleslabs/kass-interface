@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import { useWeb3React } from '@web3-react/core'
+import { useAccount } from '@starknet-react/core'
 
 import Overlay from '../Modal/Overlay'
 import Portal from '../common/Portal'
@@ -12,7 +14,9 @@ import { useL1ActivationState } from 'src/hooks/useL1WalletActivation'
 import { ActivationStatus } from 'src/state/l1Wallet'
 
 function WalletConnectContent() {
-  const { account } = useWeb3React()
+  // accounts
+  const { account: l1Account } = useWeb3React()
+  const { address: l2Account } = useAccount()
 
   // connections
   const l1Connections = getL1Connections()
@@ -21,12 +25,19 @@ function WalletConnectContent() {
   // modal
   const [, toggle] = useWalletConnectModal()
 
+  // close modal if both layers have a connected wallet
+  useEffect(() => {
+    if (l1Account && l2Account) {
+      toggle()
+    }
+  }, [toggle, l1Account, l2Account])
+
   // wallet activation
   const { activationState } = useL1ActivationState()
 
   if (activationState.status === ActivationStatus.ERROR) {
     return <ConnectionErrorContent />
-  } else if (!account) {
+  } else if (!l1Account) {
     return (
       <Content title={'Connect Ethereum wallet'} close={toggle}>
         <Column gap={'8'}>
