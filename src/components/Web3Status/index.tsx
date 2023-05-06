@@ -1,8 +1,7 @@
 import { useWeb3React } from '@web3-react/core'
 import { useAccount } from '@starknet-react/core'
 
-import Box from 'src/theme/components/Box'
-import { PrimaryButton, SecondaryButton } from '../Button/style.css'
+import { PrimaryButton, SecondaryButton } from '../Button'
 import WalletConnectModal from '../WalletModal/Connect'
 import { shortenL1Address, shortenL2Address } from 'src/utils/address'
 import { useWalletConnectModal, useL1WalletOverviewModal, useL2WalletOverviewModal } from 'src/hooks/useModal'
@@ -21,20 +20,20 @@ export function Web3StatusContent() {
   if (l1Account && l2Account) {
     return (
       <Row gap={'8'}>
-        <Box as={'button'} className={SecondaryButton} onClick={toggleL2WalletOverviewModal}>
+        <SecondaryButton onClick={toggleL2WalletOverviewModal}>
           {shortenL2Address(l2Account)}
-        </Box>
+        </SecondaryButton>
 
-        <Box as={'button'} className={SecondaryButton} onClick={toggleL1WalletOverviewModal}>
+        <SecondaryButton onClick={toggleL1WalletOverviewModal}>
           {shortenL1Address(l1Account)}
-        </Box>
+        </SecondaryButton>
       </Row>
     )
   } else {
     return (
-      <Box as={'button'} className={PrimaryButton} onClick={toggleWalletConnectModal}>
+      <PrimaryButton onClick={toggleWalletConnectModal}>
         Connect wallet
-      </Box>
+      </PrimaryButton>
     )
   }
 }

@@ -1,5 +1,5 @@
 import Box from 'src/theme/components/Box'
-import { PrimaryButton, SecondaryButton } from '../Button/style.css'
+import { PrimaryButton, SecondaryButton } from '../Button'
 import * as Text from 'src/theme/components/Text'
 import { ActivationStatus } from 'src/state/l1Wallet'
 import noop from 'src/utils/noop'
@@ -28,13 +28,11 @@ export default function ConnectionErrorContent() {
           The connection attempt failed. Please click try again and follow the steps to connect in your wallet.
         </Text.Body>
 
-        <Box as={'button'} className={PrimaryButton} onClick={retry} marginBottom={'12'}>
+        <PrimaryButton onClick={retry} marginBottom={'12'}>
           Try Again
-        </Box>
+        </PrimaryButton>
 
-        <Box as={'button'} className={SecondaryButton} onClick={cancelActivation}>
-          Back to wallet selection
-        </Box>
+        <SecondaryButton onClick={cancelActivation}>Back to wallet selection</SecondaryButton>
       </Column>
     </Content>
   )

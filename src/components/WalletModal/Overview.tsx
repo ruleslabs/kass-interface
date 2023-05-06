@@ -8,7 +8,7 @@ import Content from '../Modal/Content'
 import { useBoundStore } from 'src/state'
 import { getChainInfo } from 'src/constants/chainInfo'
 import Box from 'src/theme/components/Box'
-import { SecondaryButton } from '../Button/style.css'
+import { SecondaryButton } from '../Button'
 import { useL1WalletOverviewModal, useL2WalletOverviewModal, useCloseModal } from 'src/hooks/useModal'
 import { useAccount, useConnectors } from '@starknet-react/core'
 
@@ -30,9 +30,7 @@ function WalletOverviewModal({ chainLabel, disconnect }: WalletOverviewModalProp
   return (
     <Portal>
       <Content title={`${chainLabel} wallet`} close={disconnectAndClose}>
-        <Box as={'button'} className={SecondaryButton} onClick={disconnectAndClose}>
-          Disconnect
-        </Box>
+        <SecondaryButton onClick={disconnectAndClose}>Disconnect</SecondaryButton>
       </Content>
 
       <Overlay onClick={close} />

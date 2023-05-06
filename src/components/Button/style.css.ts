@@ -12,7 +12,7 @@ export const Base = sprinkles({
   color: 'text1',
 })
 
-export const PrimaryButton = style([
+export const primaryButton = style([
   Base,
   sprinkles({
     border: 'none',
@@ -34,7 +34,7 @@ export const PrimaryButton = style([
   }),
 ])
 
-export const SecondaryButton = style([
+export const secondaryButton = style([
   Base,
   sprinkles({
     background: 'transparent',
