@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
 
 import { sprinkles } from 'src/theme/css/sprinkles.css'
 
@@ -6,15 +7,15 @@ export const Base = sprinkles({
   borderRadius: '10',
   fontWeight: 'medium',
   cursor: 'pointer',
-  paddingX: '16',
-  paddingY: '8',
   fontSize: '16',
   color: 'text1',
+  paddingY: '8',
 })
 
 export const primaryButton = style([
   Base,
   sprinkles({
+    paddingX: '16',
     border: 'none',
     background: {
       default: 'accent',
@@ -34,20 +35,34 @@ export const primaryButton = style([
   }),
 ])
 
-export const secondaryButton = style([
-  Base,
-  sprinkles({
-    background: 'transparent',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: {
-      default: 'text2',
-      hover: 'text1',
+export const secondaryButton = recipe({
+  base: [
+    Base,
+    sprinkles({
+      paddingRight: '16',
+      background: 'transparent',
+      borderWidth: '1px',
+      borderStyle: 'solid',
+      borderColor: {
+        default: 'text2',
+        hover: 'text1',
+      },
+      color: {
+        default: 'text2',
+        hover: 'text1',
+      },
+      transitionDuration: '125',
+    })
+  ],
+
+  variants: {
+    withIcon: {
+      true: sprinkles({ paddingLeft: '8' }),
+      false: sprinkles({ paddingLeft: '16' }),
     },
-    color: {
-      default: 'text2',
-      hover: 'text1',
-    },
-    transitionDuration: '125',
-  }),
-])
+  },
+
+  defaultVariants: {
+    withIcon: false,
+  }
+})

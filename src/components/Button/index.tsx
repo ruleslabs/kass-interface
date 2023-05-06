@@ -5,8 +5,12 @@ import * as styles from './style.css'
 
 type ButtonProps = Omit<BoxProps, 'as'>
 
-export const PrimaryButton = (props: ButtonProps) =>
-  <Box as={'button'} className={clsx(props.className, styles.primaryButton)} {...props} />
+export const PrimaryButton = ({ className, ...props }: ButtonProps) =>
+  <Box as={'button'} className={clsx(className, styles.primaryButton)} {...props} />
 
-export const SecondaryButton = (props: ButtonProps) =>
-  <Box as={'button'} className={clsx(props.className, styles.secondaryButton)} {...props} />
+interface SecondaryButtonProps extends ButtonProps {
+  withIcon?: boolean
+}
+
+export const SecondaryButton = ({ className, withIcon, ...props }: SecondaryButtonProps) =>
+  <Box as={'button'} className={clsx(className, styles.secondaryButton({ withIcon }))} {...props} />

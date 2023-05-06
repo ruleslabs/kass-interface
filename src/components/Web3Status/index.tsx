@@ -7,6 +7,10 @@ import { shortenL1Address, shortenL2Address } from 'src/utils/address'
 import { useWalletConnectModal, useL1WalletOverviewModal, useL2WalletOverviewModal } from 'src/hooks/useModal'
 import { Row } from 'src/theme/components/Flex'
 import { L1WalletOverviewModal, L2WalletOverviewModal } from '../WalletModal/Overview'
+import * as Icons from 'src/theme/components/Icons'
+import Box from 'src/theme/components/Box'
+import * as styles from './styles.css'
+import { style } from '@vanilla-extract/css'
 
 export function Web3StatusContent() {
   const { account: l1Account } = useWeb3React()
@@ -20,12 +24,22 @@ export function Web3StatusContent() {
   if (l1Account && l2Account) {
     return (
       <Row gap={'8'}>
-        <SecondaryButton onClick={toggleL2WalletOverviewModal}>
-          {shortenL2Address(l2Account)}
+        <SecondaryButton onClick={toggleL2WalletOverviewModal} withIcon>
+          <Row gap={'8'}>
+            <Box className={styles.iconContainer}>
+              <Icons.Starknet />
+            </Box>
+            {shortenL2Address(l2Account)}
+          </Row>
         </SecondaryButton>
 
-        <SecondaryButton onClick={toggleL1WalletOverviewModal}>
-          {shortenL1Address(l1Account)}
+        <SecondaryButton onClick={toggleL1WalletOverviewModal} withIcon>
+          <Row gap={'8'}>
+            <Box className={styles.iconContainer}>
+              <Icons.Ethereum />
+            </Box>
+            {shortenL1Address(l1Account)}
+          </Row>
         </SecondaryButton>
       </Row>
     )
