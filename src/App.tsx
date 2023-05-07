@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import NavBar from './components/NavBar'
 import HomePage from './pages/Home'
+import CollectionPage from './pages/Collection'
 
 interface LayoutWrapperProps {
   children: React.ReactNode
@@ -24,7 +25,15 @@ const router = createBrowserRouter([
         <HomePage />
       </LayoutWrapper>
     ),
-  }
+  },
+  {
+    path: '/collection/:address',
+    element: (
+      <LayoutWrapper>
+        <CollectionPage />
+      </LayoutWrapper>
+    ),
+  },
 ])
 
 export default function App() {

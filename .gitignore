@@ -25,3 +25,7 @@ build
 
 # MacOS desktop service store
 .DS_Store
+
+# generated graphql types
+/src/graphql/**/__generated__
+schema.graphql

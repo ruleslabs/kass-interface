@@ -3,3 +3,7 @@
 </div>
 
 interface for the [Kass protocol](https://github.com/ruleslabs/kass)
+
+### Credits
+
+This interface is inspired by [@uniswap/interface](https://github.com/Uniswap/interface).

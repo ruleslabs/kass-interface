@@ -5,10 +5,14 @@
   "author": "chqrles",
   "license": "MIT",
   "scripts": {
+    "graphql:fetch": "node scripts/fetch-schema.js",
+    "graphql:generate": "graphql-codegen --config apollo-codegen.ts",
+    "prepare": "yarn graphql:fetch && yarn graphql:generate",
     "start": "craco start",
     "build": "craco build"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
     "@coinbase/wallet-sdk": "^3.6.6",
     "@starknet-react/core": "^0.14.8",
     "@types/react-dom": "^18.2.1",
@@ -23,6 +27,8 @@
     "@web3-react/walletconnect": "^8.2.0",
     "buffer": "^6.0.3",
     "clsx": "^1.2.1",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "ms.macro": "^2.0.0",
     "polished": "^4.2.2",
     "react": "^18.2.0",
@@ -34,6 +40,10 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@graphql-codegen/cli": "^3.3.1",
+    "@graphql-codegen/typescript": "^3.0.4",
+    "@graphql-codegen/typescript-operations": "^3.0.4",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@types/ms.macro": "^2.0.0",
     "@types/react": "^18.2.0",
     "@types/ua-parser-js": "^0.7.36",
@@ -43,6 +53,7 @@
     "css-loader": "^6.7.3",
     "eslint": "^8.39.0",
     "eslint-plugin-import": "^2.27.5",
+    "get-graphql-schema": "^2.1.2",
     "mini-css-extract-plugin": "^2.7.5",
     "react-scripts": "^5.0.1",
     "typescript": "^5.0.4"

@@ -15,7 +15,7 @@ export default function NavBar() {
       <Row>
         <Box className={styles.leftSideContainer}>
           <Box className={styles.logoContainer}>
-            <Icons.Logo onClick={() => { navigate({ pathname: '/test' }) }} />
+            <Icons.Logo onClick={() => { navigate({ pathname: '/' }) }} />
           </Box>
         </Box>
 
