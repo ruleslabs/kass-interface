@@ -1,67 +1,60 @@
 import gql from 'graphql-tag'
-import { GenieCollection } from 'src/types'
+import { KassCollection } from 'src/types'
 import { useMemo } from 'react'
 
-import { NftCollection, useCollectionQuery } from './__generated__/types-and-hooks'
+import * as Icons from 'src/theme/components/Icons'
+import { NetworkLayer, NftCollection, useCollectionQuery } from './__generated__/types-and-hooks'
 
 gql`
-  query Collection($addresses: [String!]!) {
-    nftCollections(filter: { addresses: $addresses }) {
-      edges {
-        cursor
-        node {
-          bannerImage {
-            url
-          }
-          description
-          image {
-            url
-          }
-          isVerified
-          name
-        }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-        hasPreviousPage
-        startCursor
-      }
+  query Collection($address: String!) {
+    nftCollection(filter: { address: $address }) {
+      bannerImageUrl
+      imageUrl
+      name
+      nativeTokenAddress
+      nativeLayer
     }
   }
 `
 
-export function formatCollectionQueryData(
-  queryCollection: NonNullable<NftCollection>,
-  address?: string
-): GenieCollection {
+export function formatCollectionQueryData(queryCollection: NonNullable<NftCollection>): KassCollection {
   return {
-    address: address ?? queryCollection?.nftContracts?.[0]?.address ?? '',
-    isVerified: queryCollection?.isVerified,
+    nativeTokenAddress: queryCollection?.nativeTokenAddress ?? '',
     name: queryCollection?.name,
-    description: queryCollection?.description,
-    bannerImageUrl: queryCollection?.bannerImage?.url,
-    imageUrl: queryCollection?.image?.url ?? '',
+    bannerImageUrl: queryCollection?.bannerImageUrl,
+    imageUrl: queryCollection?.imageUrl ?? '',
+    getNativeLayerIcon: () => {
+      switch (queryCollection?.nativeLayer) {
+        case NetworkLayer.L1:
+          return Icons.Ethereum({})
+
+        case NetworkLayer.L2:
+          return Icons.Starknet({})
+
+        default:
+          return null
+      }
+    }
   }
 }
 
 interface useCollectionReturnProps {
-  data: GenieCollection
+  data: KassCollection
   loading: boolean
 }
 
 export function useCollection(address: string, skip?: boolean): useCollectionReturnProps {
   const { data: queryData, loading } = useCollectionQuery({
     variables: {
-      addresses: address,
+      address: address,
     },
     skip,
   })
 
-  const queryCollection = queryData?.nftCollections?.edges?.[0]?.node as NonNullable<NftCollection>
+  const queryCollection = queryData?.nftCollection as NonNullable<NftCollection>
   return useMemo(() => {
     return {
-      data: formatCollectionQueryData(queryCollection, address),
+      data: formatCollectionQueryData(queryCollection),
       loading,
     }
   }, [address, loading, queryCollection])

@@ -5,7 +5,7 @@ import { dimensions, spacing, vars, zIndices } from './vars.css'
 const overflow = ['hidden', 'inherit', 'scroll', 'visible', 'auto'] as const
 
 const borderStyle = ['none', 'solid'] as const
-const borderWidth = ['0px', '0.5px', '1px', '1.5px', '2px', '3px', '4px'] as const
+const borderWidth = ['0px', '0.5px', '1px', '1.5px', '2px', '3px', '4px', '5px'] as const
 
 export const breakpoints = {
   sm: 640,

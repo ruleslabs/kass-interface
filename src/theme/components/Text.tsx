@@ -25,12 +25,22 @@ export const Link = (props: BoxProps) =>
     {...props}
   />
 
-export const HeadlineSmall = (props: BoxProps) =>
+  export const HeadlineSmall = (props: BoxProps) =>
+    <Box
+      className={sprinkles({
+        fontWeight: 'medium',
+        color: 'text1',
+        fontSize: '18',
+      })}
+      {...props}
+    />
+
+export const HeadlineLarge = (props: BoxProps) =>
   <Box
     className={sprinkles({
-      fontWeight: 'medium',
+      fontWeight: 'semibold',
       color: 'text1',
-      fontSize: '18',
+      fontSize: '32',
     })}
     {...props}
   />

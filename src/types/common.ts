@@ -1,8 +1,8 @@
-export interface GenieCollection {
-  address: string
-  isVerified?: boolean
+export interface KassCollection {
+  nativeTokenAddress: string
   name?: string
-  description?: string
   bannerImageUrl?: string
   imageUrl: string
+
+  getNativeLayerIcon: () => React.ReactNode
 }

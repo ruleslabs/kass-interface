@@ -26,11 +26,13 @@ const themeContractValues = {
   },
   radii: {
     '10': null,
+    'round': null,
   },
   fontSize: {
     '0': null,
     '16': null,
     '18': null,
+    '32': null,
   },
   fontWeight: {
     normal: null,
@@ -82,7 +84,7 @@ export const dimensions = {
   '80': '80px',
   '100': '100px',
   '120': '120px',
-  '160': '160px',
+  '140': '140px',
   '276': '276px',
   '288': '288px',
   '292': '292px',
@@ -189,11 +191,13 @@ createGlobalTheme(':root', vars, {
   },
   radii: {
     '10': '10px',
+    'round': '9999px',
   },
   fontSize: {
     '0': '0',
     '16': '16px',
     '18': '18px',
+    '32': '32px',
   },
   fontWeight: {
     normal: '400',

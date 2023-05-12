@@ -11,7 +11,7 @@ export enum StarknetChainId {
   TESTNET2 = (constants.StarknetChainId.TESTNET2 as any),
 }
 
-export type SupportedChainId = EthereumChainId & StarknetChainId
+export type SupportedChainId = EthereumChainId | StarknetChainId
 
 export const CHAIN_IDS_TO_NAMES = {
   [EthereumChainId.MAINNET]: 'mainnet',
