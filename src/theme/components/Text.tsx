@@ -1,5 +1,28 @@
 import Box, { BoxProps } from './Box'
-import { sprinkles } from '../css/sprinkles.css'
+import { Sprinkles, sprinkles } from '../css/sprinkles.css'
+import clsx, { ClassValue } from 'clsx'
+
+interface TextProps extends BoxProps {
+  autoLoadingWidth?: Sprinkles['width']
+  loading?: boolean
+}
+
+const TextWrapper = ({ autoLoadingWidth, loading = false, className, children, ...props }: TextProps) => {
+  if (loading) {
+    className = clsx(
+      className,
+      sprinkles({
+        backgroundColor: 'bg2',
+        width: autoLoadingWidth,
+      })
+    )
+    children = <>&nbsp;</>
+  }
+
+  return (
+    <Box className={className} {...props} >{children}</Box>
+  )
+}
 
 export const Body = (props: BoxProps) =>
   <Box
@@ -35,8 +58,8 @@ export const Link = (props: BoxProps) =>
       {...props}
     />
 
-export const HeadlineLarge = (props: BoxProps) =>
-  <Box
+export const HeadlineLarge = (props: TextProps) =>
+  <TextWrapper
     className={sprinkles({
       fontWeight: 'semibold',
       color: 'text1',

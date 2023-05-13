@@ -14,7 +14,7 @@
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "@coinbase/wallet-sdk": "^3.6.6",
-    "@rulesorg/sdk-core": "^1.0.2",
+    "@rulesorg/sdk-core": "^1.1.2",
     "@starknet-react/core": "^0.14.8",
     "@types/react-dom": "^18.2.1",
     "@vanilla-extract/css": "^1.11.0",
@@ -26,7 +26,6 @@
     "@web3-react/network": "^8.2.0",
     "@web3-react/types": "^8.2.0",
     "@web3-react/walletconnect": "^8.2.0",
-    "buffer": "^6.0.3",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
@@ -56,6 +55,7 @@
     "eslint-plugin-import": "^2.27.5",
     "get-graphql-schema": "^2.1.2",
     "mini-css-extract-plugin": "^2.7.5",
+    "node-polyfill-webpack-plugin": "^2.0.1",
     "react-scripts": "^5.0.1",
     "typescript": "^5.0.4"
   },

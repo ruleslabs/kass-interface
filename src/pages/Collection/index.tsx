@@ -16,12 +16,16 @@ export default function CollectionPage() {
     <Column className={styles.collectionContainer} marginTop={'32'} gap={'48'}>
       <Box className={styles.bannerContainer}>
         <Box
-          as={'img'}
+          as={collection.bannerImageUrl ? 'img' : 'div'}
           className={styles.banner}
-          src={collection.bannerImageUrl ? `${collection.bannerImageUrl}?w=${window.innerWidth}` : ''}
+          src={collection.bannerImageUrl ?? ''}
         />
 
-        <Box as={'img'} className={styles.image} src={collection.imageUrl} />
+        <Box
+          as={collection.imageUrl ? 'img' : 'div'}
+          className={styles.image({ loading: !collection.imageUrl })}
+          src={collection.imageUrl ?? ''}
+        />
       </Box>
 
       <Box className={styles.collectionDetaiContainer}>
@@ -29,7 +33,9 @@ export default function CollectionPage() {
           <Box className={styles.networkIcon}>
             {collection.getNativeLayerIcon()}
           </Box>
-          <Text.HeadlineLarge>{collection.name ?? collection.nativeTokenAddress}</Text.HeadlineLarge>
+          <Text.HeadlineLarge autoLoadingWidth={'276'} loading={!collection.name}>
+            {collection.name}
+          </Text.HeadlineLarge>
         </Row>
       </Box>
     </Column>

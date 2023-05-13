@@ -1,3 +1,4 @@
+import { ipfs } from '@rulesorg/sdk-core'
 import gql from 'graphql-tag'
 import { KassCollection } from 'src/types'
 import { useMemo } from 'react'
@@ -5,7 +6,6 @@ import { useMemo } from 'react'
 import { getNetworkLayer } from 'src/utils/address'
 import * as Icons from 'src/theme/components/Icons'
 import { NetworkLayer, NftCollection, useCollectionQuery } from './__generated__/types-and-hooks'
-import { ipfsToHttps } from 'src/utils/ipfs'
 
 gql`
   query Collection($address: String!) {
@@ -26,8 +26,8 @@ export function formatCollectionQueryData(
   return {
     nativeTokenAddress: queryCollection?.nativeTokenAddress ?? '',
     name: queryCollection?.name,
-    bannerImageUrl: ipfsToHttps(queryCollection?.bannerImageUrl),
-    imageUrl: ipfsToHttps(queryCollection?.imageUrl) ?? '',
+    bannerImageUrl: ipfs.ipfsToHttps(queryCollection?.bannerImageUrl),
+    imageUrl: ipfs.ipfsToHttps(queryCollection?.imageUrl) ?? '',
     getNativeLayerIcon: () => {
       switch (queryCollection?.nativeLayer ?? getNetworkLayer(address)) {
         case NetworkLayer.L1:
