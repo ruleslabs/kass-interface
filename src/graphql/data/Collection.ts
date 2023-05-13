@@ -2,8 +2,10 @@ import gql from 'graphql-tag'
 import { KassCollection } from 'src/types'
 import { useMemo } from 'react'
 
+import { getNetworkLayer } from 'src/utils/address'
 import * as Icons from 'src/theme/components/Icons'
 import { NetworkLayer, NftCollection, useCollectionQuery } from './__generated__/types-and-hooks'
+import { ipfsToHttps } from 'src/utils/ipfs'
 
 gql`
   query Collection($address: String!) {
@@ -17,14 +19,17 @@ gql`
   }
 `
 
-export function formatCollectionQueryData(queryCollection: NonNullable<NftCollection>): KassCollection {
+export function formatCollectionQueryData(
+  queryCollection: NonNullable<NftCollection>,
+  address: string
+): KassCollection {
   return {
     nativeTokenAddress: queryCollection?.nativeTokenAddress ?? '',
     name: queryCollection?.name,
-    bannerImageUrl: queryCollection?.bannerImageUrl,
-    imageUrl: queryCollection?.imageUrl ?? '',
+    bannerImageUrl: ipfsToHttps(queryCollection?.bannerImageUrl),
+    imageUrl: ipfsToHttps(queryCollection?.imageUrl) ?? '',
     getNativeLayerIcon: () => {
-      switch (queryCollection?.nativeLayer) {
+      switch (queryCollection?.nativeLayer ?? getNetworkLayer(address)) {
         case NetworkLayer.L1:
           return Icons.Ethereum({})
 
@@ -54,7 +59,7 @@ export function useCollection(address: string, skip?: boolean): useCollectionRet
   const queryCollection = queryData?.nftCollection as NonNullable<NftCollection>
   return useMemo(() => {
     return {
-      data: formatCollectionQueryData(queryCollection),
+      data: formatCollectionQueryData(queryCollection, address),
       loading,
     }
   }, [address, loading, queryCollection])
