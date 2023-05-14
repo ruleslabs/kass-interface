@@ -2926,10 +2926,10 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
-"@rulesorg/sdk-core@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@rulesorg/sdk-core/-/sdk-core-1.1.2.tgz#3a62f01c074a9182ab62d15c633143b1e83b2ab5"
-  integrity sha512-awgpbb41xzZw5xjRX8rjsVeaAhmO18tbwvKtIWBeyR6r3JLORY1F9E6+/RXZic+XAAM+VvP84bhhKy6I+el1RQ==
+"@rulesorg/sdk-core@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@rulesorg/sdk-core/-/sdk-core-1.1.6.tgz#33eade16fe484a618ae50d9c216dfe01ae75867e"
+  integrity sha512-pWgJPOhbdt0hV9SjbBmOESzquEc3Q3UyTVMY3lFZroAMbkfT6DjPcSXHp5rQ4U35+0L+y522VVYqgOKVo8V1eg==
   dependencies:
     alchemy-sdk "^2.8.3"
     big.js "^6.2.1"
@@ -13562,6 +13562,11 @@ url-join@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/url-join/-/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
   integrity sha512-jk1+QP6ZJqyOiuEI9AEWQfju/nB2Pw466kbA0LEZljHwKeMgd9WrAEgEGxjPDD2+TNbbb37rTyhEfrCXfuKXnA==
+
+url-join@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/url-join/-/url-join-5.0.0.tgz#c2f1e5cbd95fa91082a93b58a1f42fecb4bdbcf1"
+  integrity sha512-n2huDr9h9yzd6exQVnH/jU5mr+Pfx08LRXXZhkLLetAMESRj+anQsTAh940iMrIetKAmry9coFuZQ2jY8/p3WA==
 
 url-parse@^1.5.3:
   version "1.5.10"

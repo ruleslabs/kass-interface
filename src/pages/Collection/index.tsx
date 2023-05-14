@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useMatch } from 'react-router-dom'
 
 import { useCollection } from 'src/graphql/data/Collection'
@@ -5,12 +6,20 @@ import Box from 'src/theme/components/Box'
 import * as styles from './style.css'
 import * as Text from 'src/theme/components/Text'
 import { Column, Row } from 'src/theme/components/Flex'
+import { addr } from '@rulesorg/sdk-core'
 
 export default function CollectionPage() {
   const match = useMatch('/collection/:address')
-  const collectionAddress = match?.params.address
+  const collectionAddress = useMemo(() => {
+    try {
+      return addr.checksum(match?.params.address)
+    } catch (error) {
+      console.error(error)
+      return null
+    }
+  }, [match?.params.address])
 
-  const { data: collection } = useCollection(collectionAddress!)
+  const { data: collection } = useCollection(collectionAddress ?? '', !collectionAddress)
 
   return (
     <Column className={styles.collectionContainer} marginTop={'32'} gap={'48'}>
