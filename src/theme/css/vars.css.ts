@@ -32,6 +32,7 @@ const themeContractValues = {
     '0': null,
     '16': null,
     '18': null,
+    '24': null,
     '32': null,
   },
   fontWeight: {
@@ -197,6 +198,7 @@ createGlobalTheme(':root', vars, {
     '0': '0',
     '16': '16px',
     '18': '18px',
+    '24': '24px',
     '32': '32px',
   },
   fontWeight: {

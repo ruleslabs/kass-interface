@@ -8,6 +8,7 @@ import * as Text from 'src/theme/components/Text'
 import * as Icons from 'src/theme/components/Icons'
 import { Column, Row } from 'src/theme/components/Flex'
 import { addr } from '@rulesorg/sdk-core'
+import Toggler from 'src/components/Toggler'
 
 export default function CollectionPage() {
   const match = useMatch('/collection/:address')
@@ -23,32 +24,32 @@ export default function CollectionPage() {
   const { data: collection } = useCollection(collectionAddress ?? '', !collectionAddress)
 
   return (
-    <Column className={styles.collectionContainer} marginTop={'32'} gap={'48'}>
-      <Box className={styles.bannerContainer}>
-        <Box
-          as={collection.bannerImageUrl ? 'img' : 'div'}
-          loading={!collection.bannerImageUrl}
-          className={styles.banner}
-          src={collection.bannerImageUrl}
-        />
+    <>
+      <Box className={styles.collectionHeaderContainer} marginTop={'32'}>
+        <Box className={styles.bannerContainer}>
+          <Box
+            as={'img'}
+            loading={!collection.bannerImageUrl}
+            className={styles.banner}
+            src={collection.bannerImageUrl}
+          />
 
-        <Box
-          as={collection.imageUrl ? 'img' : 'div'}
-          loading={!collection.imageUrl}
-          className={styles.image}
-          src={collection.imageUrl ?? ''}
-        />
+          <Box as={'img'} loading={!collection.imageUrl} className={styles.image} src={collection.imageUrl ?? ''} />
+        </Box>
       </Box>
 
-      <Box className={styles.collectionDetaiContainer}>
-        <Text.HeadlineLarge loadingWidth={'276'} loading={!collection.name}>
-          {collection.name}
-        </Text.HeadlineLarge>
-      </Box>
+      <Column className={styles.collectionBodyContainer} gap={'48'} marginTop={'40'}>
+        <Row gap={'16'}>
+          <Box className={styles.networkIcon}>
+            {collection.getNativeLayerIcon()}
+          </Box>
+          <Text.HeadlineLarge loadingWidth={'276'} loading={!collection.name}>
+            {collection.name}
+          </Text.HeadlineLarge>
+        </Row>
 
-      {/* <Row gap={'16'}>
-        <Text.
-      </Row> */}
-    </Column>
+        <Toggler modes={['Ethereum', 'Starknet']} />
+      </Column>
+    </>
   )
 }

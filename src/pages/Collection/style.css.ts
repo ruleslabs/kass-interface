@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { recipe } from '@vanilla-extract/recipes'
 import { sprinkles } from 'src/theme/css/sprinkles.css'
 
-export const collectionContainer = sprinkles({
+export const collectionHeaderContainer = sprinkles({
   paddingX: '16',
 })
 
@@ -33,8 +33,8 @@ export const image = style([
   }),
 ])
 
-export const collectionDetaiContainer = sprinkles({
-  paddingX: '24',
+export const collectionBodyContainer = sprinkles({
+  paddingX: '48',
 })
 
 export const networkIcon = sprinkles({

@@ -24,31 +24,39 @@ const TextWrapper = ({ loadingWidth, loading, className, children, ...props }: T
   )
 }
 
-export const Body = (props: TextProps) =>
+export const Custom = TextWrapper
+
+export const Body = ({ className, ...props }: TextProps) =>
   <TextWrapper
-    className={sprinkles({
-      fontWeight: 'normal',
-      color: 'text1',
-      fontSize: '16',
-    })}
+    className={clsx(
+      className,
+      sprinkles({
+        fontWeight: 'normal',
+        color: 'text1',
+        fontSize: '16',
+      })
+    )}
     {...props}
   />
 
-export const Link = (props: TextProps) =>
+export const Link = ({ className, ...props }: TextProps) =>
   <TextWrapper
-    className={sprinkles({
-      fontWeight: 'normal',
-      color: 'text1',
-      fontSize: '16',
-      cursor: 'pointer',
-      textDecoration: {
-        hover: 'underline',
-      },
-    })}
+    className={clsx(
+      className,
+      sprinkles({
+        fontWeight: 'normal',
+        color: 'text1',
+        fontSize: '16',
+        cursor: 'pointer',
+        textDecoration: {
+          hover: 'underline',
+        },
+      })
+    )}
     {...props}
   />
 
-  export const HeadlineSmall = (props: TextProps) =>
+  export const HeadlineSmall = ({ className, ...props }: TextProps) =>
     <TextWrapper
       className={sprinkles({
         fontWeight: 'medium',
@@ -58,12 +66,28 @@ export const Link = (props: TextProps) =>
       {...props}
     />
 
-export const HeadlineLarge = (props: TextProps) =>
+export const HeadlineMedium = ({ className, ...props }: TextProps) =>
   <TextWrapper
-    className={sprinkles({
-      fontWeight: 'semibold',
-      color: 'text1',
-      fontSize: '32',
-    })}
+    className={clsx(
+      className,
+      sprinkles({
+        fontWeight: 'semibold',
+        color: 'text1',
+        fontSize: '24',
+      })
+    )}
+    {...props}
+  />
+
+export const HeadlineLarge = ({ className, ...props }: TextProps) =>
+  <TextWrapper
+    className={clsx(
+      className,
+      sprinkles({
+        fontWeight: 'semibold',
+        color: 'text1',
+        fontSize: '32',
+      })
+    )}
     {...props}
   />

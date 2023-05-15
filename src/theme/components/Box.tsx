@@ -36,7 +36,7 @@ const Box = React.forwardRef<HTMLElement, Props>(({ as = 'div', className, loadi
     ...atomProps,
   })
 
-  return React.createElement(as, {
+  return React.createElement(loading ? 'div' : as, {
     className: clsx(atomicClasses, className),
     ...nativeProps,
     ref,
