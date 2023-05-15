@@ -15,37 +15,23 @@ export const banner = sprinkles({
   width: 'full',
   objectFit: 'cover',
   borderRadius: '10',
-  backgroundColor: 'bg2',
 })
 
-export const image = recipe({
-  base: [
-    {
-      bottom: '-24px',
-    },
-    sprinkles({
-      borderWidth: '5px',
-      borderStyle: 'solid',
-      borderColor: 'bg1',
-      borderRadius: 'round',
-      width: '140',
-      height: '140',
-      position: 'absolute',
-      left: '72',
-    })
-  ],
-
-  variants: {
-    loading: {
-      true: sprinkles({ backgroundColor: 'bg2' }),
-      false: sprinkles({ backgroundColor: 'bg1' }),
-    },
+export const image = style([
+  {
+    bottom: '-24px',
   },
-
-  defaultVariants: {
-    loading: false,
-  }
-})
+  sprinkles({
+    borderWidth: '5px',
+    borderStyle: 'solid',
+    borderColor: 'bg1',
+    borderRadius: 'round',
+    width: '140',
+    height: '140',
+    position: 'absolute',
+    left: '72',
+  }),
+])
 
 export const collectionDetaiContainer = sprinkles({
   paddingX: '24',
@@ -55,17 +41,4 @@ export const networkIcon = sprinkles({
   width: '32',
   height: '32',
   color: 'text1',
-})
-
-export const loadingText = recipe({
-  base: sprinkles({
-    minWidth: '276',
-    background: 'bg2',
-  }),
-
-  variants: {
-    loading: {
-
-    }
-  }
 })

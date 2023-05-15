@@ -4,19 +4,20 @@ import React from 'react'
 import clsx, { ClassValue } from 'clsx'
 
 import { sprinkles, Sprinkles } from '../css/sprinkles.css'
+import { atoms } from '../css/atoms'
 
 type HTMLProperties<T = HTMLElement> = Omit<
   React.AllHTMLAttributes<T>,
   'as' | 'className' | 'color' | 'height' | 'width'
 >
 
-type Props = Sprinkles &
-  HTMLProperties & {
-    as?: React.ElementType,
-    className?: ClassValue,
-  }
+interface Props extends Sprinkles, HTMLProperties {
+  as?: React.ElementType,
+  className?: ClassValue,
+  loading?: boolean
+}
 
-const Box = React.forwardRef<HTMLElement, Props>(({ as = 'div', className, ...props }, ref) => {
+const Box = React.forwardRef<HTMLElement, Props>(({ as = 'div', className, loading, ...props }, ref) => {
   const atomProps: Record<string, unknown> = {}
   const nativeProps: Record<string, unknown> = {}
 
@@ -30,10 +31,13 @@ const Box = React.forwardRef<HTMLElement, Props>(({ as = 'div', className, ...pr
   }
 
   // compute class names
-  const atomicClasses = clsx(className, sprinkles(atomProps))
+  const atomicClasses = atoms({
+    reset: loading ? 'loading' : undefined,
+    ...atomProps,
+  })
 
   return React.createElement(as, {
-    className: atomicClasses,
+    className: clsx(atomicClasses, className),
     ...nativeProps,
     ref,
   })

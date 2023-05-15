@@ -5,6 +5,7 @@ import { useCollection } from 'src/graphql/data/Collection'
 import Box from 'src/theme/components/Box'
 import * as styles from './style.css'
 import * as Text from 'src/theme/components/Text'
+import * as Icons from 'src/theme/components/Icons'
 import { Column, Row } from 'src/theme/components/Flex'
 import { addr } from '@rulesorg/sdk-core'
 
@@ -26,27 +27,28 @@ export default function CollectionPage() {
       <Box className={styles.bannerContainer}>
         <Box
           as={collection.bannerImageUrl ? 'img' : 'div'}
+          loading={!collection.bannerImageUrl}
           className={styles.banner}
-          src={collection.bannerImageUrl ?? ''}
+          src={collection.bannerImageUrl}
         />
 
         <Box
           as={collection.imageUrl ? 'img' : 'div'}
-          className={styles.image({ loading: !collection.imageUrl })}
+          loading={!collection.imageUrl}
+          className={styles.image}
           src={collection.imageUrl ?? ''}
         />
       </Box>
 
       <Box className={styles.collectionDetaiContainer}>
-        <Row gap={'16'}>
-          <Box className={styles.networkIcon}>
-            {collection.getNativeLayerIcon()}
-          </Box>
-          <Text.HeadlineLarge autoLoadingWidth={'276'} loading={!collection.name}>
-            {collection.name}
-          </Text.HeadlineLarge>
-        </Row>
+        <Text.HeadlineLarge loadingWidth={'276'} loading={!collection.name}>
+          {collection.name}
+        </Text.HeadlineLarge>
       </Box>
+
+      {/* <Row gap={'16'}>
+        <Text.
+      </Row> */}
     </Column>
   )
 }
