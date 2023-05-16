@@ -1,12 +1,45 @@
 import { createGlobalTheme, createGlobalThemeContract } from '@vanilla-extract/css'
 import { darken } from 'polished'
 
+const colors = {
+  transparent: 'transparent',
+  none: 'none',
+  white: '#ffffff',
+  black: '#000000',
+
+  gray50: '#f7f7f7',
+  gray950: '#0D1114',
+  gray900: '#191B1D',
+  gray800: '#363838',
+  gray500: '#828585',
+
+  vibrantPurple: '#9F04DC',
+}
+
+export const times = {
+  slow: '500ms',
+  medium: '250ms',
+  fast: '125ms',
+}
+
+export const timings = {
+  ease: 'ease',
+  in: 'ease-in',
+  out: 'ease-out',
+  inOut: 'ease-in-out',
+}
+
+export const opacities = {
+  disabled: '0.5',
+  enabled: '1',
+}
+
+const nullify = <T extends { [key: string]: string }>(obj: T) =>
+  Object.keys(obj).reduce<{ [key in keyof typeof obj]: null }>((acc, key) => ({ ...acc, [key]: null }), {} as any)
+
 const themeContractValues = {
   color: {
-    transparent: null,
-    none: null,
-    white: null,
-    black: null,
+    ...nullify(colors),
 
     text1: null,
     text2: null,
@@ -41,11 +74,6 @@ const themeContractValues = {
     semibold: null,
     bold: null,
   },
-  time: {
-    '125': null,
-    '250': null,
-    '500': null,
-  },
   fonts: {
     body: null,
     heading: null,
@@ -53,6 +81,9 @@ const themeContractValues = {
   shadows: {
     none: null,
   },
+  opacity: nullify(opacities),
+  time: nullify(times),
+  timing: nullify(timings),
 }
 
 export const vars = createGlobalThemeContract(themeContractValues, (_, path) => `theme-${path.join('-')}`)
@@ -133,6 +164,7 @@ export const spacing = {
   '136': '136px',
   '150': '150px',
   '1/2': '50%',
+  'full': '100%',
   auto: 'auto',
   unset: 'unset',
 }
@@ -149,30 +181,9 @@ export const zIndices = {
   tooltip: '1080',
 }
 
-const colors = {
-  transparent: 'transparent',
-  none: 'none',
-  white: '#ffffff',
-  black: '#000000',
-
-  gray50: '#f7f7f7',
-  gray950: '#0D1114',
-  gray900: '#191B1D',
-  gray800: '#363838',
-  gray500: '#828585',
-
-  vibrantPurple: '#9F04DC',
-}
-
 createGlobalTheme(':root', vars, {
   color: {
-    ...Object
-      .keys(colors)
-      .filter((key) => (themeContractValues.color as any)[key] === null)
-      .reduce((acc: any, key) => {
-        acc[key] = (colors as any)[key]
-        return acc
-      }, {}),
+    ...colors,
 
     text1: colors.gray50,
     text2: colors.gray500,
@@ -207,11 +218,6 @@ createGlobalTheme(':root', vars, {
     semibold: '600',
     bold: '700',
   },
-  time: {
-    '125': '125ms',
-    '250': '250ms',
-    '500': '500ms',
-  },
   fonts: {
     body: 'Inter, sans-serif',
     heading: 'montserrat, sans-serif',
@@ -219,4 +225,7 @@ createGlobalTheme(':root', vars, {
   shadows: {
     none: 'none',
   },
+  time: times,
+  timing: timings,
+  opacity: opacities,
 })

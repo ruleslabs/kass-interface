@@ -5,10 +5,9 @@ import { useCollection } from 'src/graphql/data/Collection'
 import Box from 'src/theme/components/Box'
 import * as styles from './style.css'
 import * as Text from 'src/theme/components/Text'
-import * as Icons from 'src/theme/components/Icons'
 import { Column, Row } from 'src/theme/components/Flex'
 import { addr } from '@rulesorg/sdk-core'
-import Toggler from 'src/components/Toggler'
+import CollectionAssets from 'src/components/nft/Collection/CollectionNfts'
 
 export default function CollectionPage() {
   const match = useMatch('/collection/:address')
@@ -48,7 +47,7 @@ export default function CollectionPage() {
           </Text.HeadlineLarge>
         </Row>
 
-        <Toggler modes={['Ethereum', 'Starknet']} />
+        {collectionAddress && <CollectionAssets contractAddress={collectionAddress} />}
       </Column>
     </>
   )

@@ -51,7 +51,7 @@ export const secondaryButton = recipe({
         default: 'text2',
         hover: 'text1',
       },
-      transitionDuration: '125',
+      transitionDuration: 'fast',
     })
   ],
 

@@ -18,7 +18,7 @@ export const SearchBarContainer = sprinkles({
     hover: 'accent',
   },
   gap: '8',
-  transitionDuration: '125',
+  transitionDuration: 'fast',
 })
 
 export const Search = sprinkles({

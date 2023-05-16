@@ -6,3 +6,11 @@ export interface KassCollection {
 
   getNativeLayerIcon: () => React.ReactNode
 }
+
+export interface KassAsset {
+  name?: string
+  tokenId: string
+  imageUrl: string
+  animationUrl: string
+  quantity: number
+}

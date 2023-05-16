@@ -2,6 +2,9 @@ import { createSprinkles, defineProperties } from '@vanilla-extract/sprinkles'
 
 import { dimensions, spacing, vars, zIndices } from './vars.css'
 
+const objectify = <T extends string>(arr: readonly T[]) =>
+  arr.reduce<Record<T, T>>((acc, e) => ({ ...acc, [e]: e }), {} as any)
+
 const overflow = ['hidden', 'inherit', 'scroll', 'visible', 'auto'] as const
 
 const borderStyle = ['none', 'solid'] as const
@@ -11,6 +14,9 @@ export const breakpoints = {
   sm: 640,
   md: 768,
   lg: 1024,
+  xl: 1280,
+  xxl: 1536,
+  xxxl: 1920,
 }
 
 const flexAlignment = [
@@ -28,9 +34,11 @@ const flexAlignment = [
 const layoutStyles = defineProperties({
   conditions: {
     xs: {},
-    sm: { '@media': `screen and (min-width: ${breakpoints.sm}px)` },
-    md: { '@media': `screen and (min-width: ${breakpoints.md}px)` },
-    lg: { '@media': `screen and (min-width: ${breakpoints.lg}px)` },
+    ...(Object.keys(breakpoints) as (keyof typeof breakpoints)[])
+      .reduce<{ [key in keyof typeof breakpoints]: { '@media': string } }>((acc, key) => ({
+        ...acc,
+        [key]: { '@media': `screen and (min-width: ${breakpoints[key]}px)` },
+      }), {} as any),
   },
   defaultCondition: 'sm',
   properties: {
@@ -83,8 +91,6 @@ const layoutStyles = defineProperties({
     position: ['absolute', 'fixed', 'relative', 'sticky', 'static'],
 
     objectFit: ['contain', 'cover'],
-
-    opacity: ['auto', '0', '0.1', '0.3', '0.5', '0.7', '1'],
   } as const,
   shorthands: {
     paddingX: ['paddingLeft', 'paddingRight'],
@@ -121,7 +127,9 @@ const colorStyles = defineProperties({
     fill: vars.color,
 
     boxShadow: vars.shadows,
-  },
+
+    opacity: { ...vars.opacity, ...objectify(['auto', '0', '0.1', '0.3', '0.5', '0.7', '1'] as const) },
+  } as const,
 })
 
 const unresponsiveProperties = defineProperties({
@@ -161,6 +169,8 @@ const unresponsiveProperties = defineProperties({
     transition: vars.time,
     transitionDuration: vars.time,
     animationDuration: vars.time,
+    transitionTimingFunction: vars.timing,
+    animationTimingFunction: vars.timing,
   },
 })
 
