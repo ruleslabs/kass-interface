@@ -3,33 +3,32 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { breakpoints, sprinkles } from 'src/theme/css/sprinkles.css'
 import { vars } from 'src/theme/css/vars.css'
-import { container } from './containers.css'
+import { container, mediaContainer } from './style.css'
 
-export const mediaContainer = sprinkles({
-  overflow: 'hidden',
-})
+const mediaScaleOnHover = style(
+  {
+    transition: `${vars.time.medium} ${vars.timing.ease} transform`,
+    selectors: {
+      [`${container().split(' ')[0]}:hover &`]: {
+        transform: 'scale(1.15)',
+      },
+    },
+  }
+)
 
 export const image = recipe({
   base: style([
-    {
-      transition: `${vars.time.medium} ${vars.timing.ease} transform`,
-      selectors: {
-        [`${container().split(' ')[0]}:hover &`]: {
-          transform: 'scale(1.15)',
-        },
-      },
-    },
+    mediaScaleOnHover,
     sprinkles({
       width: 'full',
       objectFit: 'contain',
-    })
+    }),
   ]),
 
   variants: {
     hidden: {
       true: sprinkles({ visibility: 'hidden' }),
-      false: sprinkles({ visibility: 'visible' }),
-    }
+    },
   },
 
   defaultVariants: {
@@ -42,33 +41,40 @@ export const image = recipe({
 export const playbackButton = recipe({
   base: [
     {
-      marginLeft: 'calc(100% - 50px)',
-      transform: 'translateY(-76px)',
+      pointerEvents: 'auto',
 
       '@media': {
         [`screen and (max-width: ${breakpoints.sm}px)`]: {
-          display: 'block',
+          display: 'flex',
         },
       },
 
       selectors: {
-        [`${mediaContainer}:hover &`]: {
-          display: 'block',
+        [`${mediaContainer.split(' ')[0]}:hover &`]: {
+          display: 'flex',
         },
       },
     },
     sprinkles({
-      color: 'accent',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      color: 'text1',
       position: 'absolute',
-      height: '40',
-      width: '40',
+      height: '20',
+      width: '20',
+      padding: '12',
       zIndex: '1',
+      bottom: '8',
+      right: '8',
+      borderRadius: '10',
+      background: 'bg1Transparent',
     })
   ],
 
   variants: {
     pauseButton: {
-      true: sprinkles({ display: 'block' }),
+      true: sprinkles({ display: 'flex' }),
       false: sprinkles({ display: 'none' }),
     },
   },
@@ -83,9 +89,12 @@ export const audio = sprinkles({
   height: 'full',
 })
 
-export const video = sprinkles({
-  width: 'full',
-})
+export const video = style([
+  mediaScaleOnHover,
+  sprinkles({
+    width: 'full',
+  }),
+])
 
 export const innerMediaContainer = sprinkles({
   position: 'absolute',

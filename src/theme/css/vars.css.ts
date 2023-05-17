@@ -1,5 +1,5 @@
 import { createGlobalTheme, createGlobalThemeContract } from '@vanilla-extract/css'
-import { darken } from 'polished'
+import { darken, transparentize } from 'polished'
 
 const colors = {
   transparent: 'transparent',
@@ -55,6 +55,8 @@ const themeContractValues = {
 
     bg1: null,
     bg2: null,
+
+    bg1Transparent: null,
 
     border1: null,
 
@@ -194,6 +196,8 @@ createGlobalTheme(':root', vars, {
 
     bg1: colors.gray950,
     bg2: colors.gray900,
+
+    bg1Transparent: transparentize(0.5, colors.gray950),
 
     border1: colors.gray800,
 

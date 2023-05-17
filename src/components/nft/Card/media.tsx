@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Pause, Play } from 'react-feather'
 
 import Box from 'src/theme/components/Box'
 import * as styles from './media.css'
 import * as Text from 'src/theme/components/Text'
+import * as Icons from 'src/theme/components/Icons'
 import { UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { getHeightFromAspectRatio, getMediaAspectRatio, handleUniformAspectRatio } from './utils'
 import { Row } from 'src/theme/components/Flex'
+import Image from 'src/theme/components/Image'
 
 interface NftImageProps {
   src?: string
@@ -24,24 +25,20 @@ export function NftImage({
   setRenderedHeight,
 }: NftImageProps) {
   const [noContent, setNoContent] = useState(!src)
-  const [loaded, setLoaded] = useState(false)
 
   if (noContent) {
     return <NoContentContainer height={getHeightFromAspectRatio(uniformAspectRatio, renderedHeight)} />
   }
 
   return (
-    <Row className={styles.mediaContainer}>
-      <Box
-        as={'img'}
+    <Row>
+      <Image
         className={styles.image()}
         src={src}
-        loading={!loaded}
         draggable={false}
         onError={() => setNoContent(true)}
         onLoad={(e) => {
           handleUniformAspectRatio(uniformAspectRatio, e, setUniformAspectRatio, renderedHeight, setRenderedHeight)
-          setLoaded(true)
         }}
         style={{ aspectRatio: getMediaAspectRatio(uniformAspectRatio, setUniformAspectRatio) }}
       />
@@ -71,7 +68,6 @@ export const NftPlayableMedia = ({
 }: NftPlayableMediaProps) => {
   const mediaRef = useRef<HTMLVideoElement>(null)
   const [noContent, setNoContent] = useState(!src)
-  const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
     if (shouldPlay && mediaRef.current) {
@@ -89,33 +85,31 @@ export const NftPlayableMedia = ({
 
   return (
     <>
-      <Row className={styles.mediaContainer}>
-        <Box
-          as={'img'}
-          className={styles.image()}
+      <Row>
+        <Image
+          className={styles.image({ hidden: shouldPlay && !isAudio })}
           src={src}
-          loading={!imageLoaded}
           draggable={false}
           onError={() => setNoContent(true)}
           onLoad={(e) => {
             handleUniformAspectRatio(uniformAspectRatio, e, setUniformAspectRatio, renderedHeight, setRenderedHeight)
-            setImageLoaded(true)
           }}
           style={{ aspectRatio }}
         />
       </Row>
       {shouldPlay ? (
         <>
-          <Box className={styles.playbackButton({ pauseButton: true })}>
-            <Pause
-              size={'24px'}
-              onClick={(e) => {
-                e.preventDefault()
-                e.stopPropagation()
-                setCurrentTokenPlayingMedia(undefined)
-              }}
-            />
+          <Box
+            className={styles.playbackButton({ pauseButton: true })}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              setCurrentTokenPlayingMedia(undefined)
+            }}
+          >
+            <Icons.Pause />
           </Box>
+
           <Row className={styles.innerMediaContainer}>
             {isAudio ? (
               <Box
@@ -148,15 +142,15 @@ export const NftPlayableMedia = ({
           </Row>
         </>
       ) : (
-        <Box className={styles.playbackButton()}>
-          <Play
-            size={'24px'}
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              setCurrentTokenPlayingMedia(tokenId)
-            }}
-          />
+        <Box
+          className={styles.playbackButton()}
+          onClick={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            setCurrentTokenPlayingMedia(tokenId)
+          }}
+        >
+          <Icons.Play />
         </Box>
       )}
     </>

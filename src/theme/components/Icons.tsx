@@ -42,3 +42,16 @@ export const Ethereum = (props: SVGProps) => (
     <path d="M25.8,18.2,16,24,6.2,18.2,16,32m-.8-2.4L8.9,20.7l6.3,3.7Z"/>
   </svg>
 )
+
+export const Pause = (props: SVGProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" {...props}>
+    <path d="M3,0H5A.9.9,0,0,1,6,1V15a.9.9,0,0,1-1,1H3a.9.9,0,0,1-1-1V1A.9.9,0,0,1,3,0Z"/>
+    <path d="M11,0h2a.9.9,0,0,1,1,1V15a.9.9,0,0,1-1,1H11a.9.9,0,0,1-1-1V1A.9.9,0,0,1,11,0Z"/>
+  </svg>
+)
+
+export const Play = (props: SVGProps) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" {...props}>
+    <path d="M3.1.2,14,7.2a.9.9,0,0,1,0,1.6l-10.9,7A.9.9,0,0,1,1.6,15V1A.9.9,0,0,1,3.1.2Z"/>
+  </svg>
+)

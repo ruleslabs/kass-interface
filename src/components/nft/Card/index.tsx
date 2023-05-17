@@ -1,12 +1,13 @@
 import { KassAsset, UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { getNftDisplayComponent } from './utils'
-import * as Card from './containers'
 import * as Text from 'src/theme/components/Text'
+import * as styles from './style.css'
 import Box from 'src/theme/components/Box'
+import SizingImage from 'src/assets/sizingImage.png'
 
 interface NftCardProps {
   asset: KassAsset
-  isDisabled: boolean
+  isMobile: boolean
   mediaShouldBePlaying: boolean
   uniformAspectRatio?: UniformAspectRatio
   setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void
@@ -20,7 +21,7 @@ interface NftCardProps {
  */
 export const NftCard = ({
   asset,
-  isDisabled,
+  isMobile,
   mediaShouldBePlaying,
   uniformAspectRatio = UniformAspectRatios.square,
   setUniformAspectRatio,
@@ -29,8 +30,8 @@ export const NftCard = ({
   setCurrentTokenPlayingMedia,
 }: NftCardProps) => {
   return (
-    <Card.Container>
-      <Card.MediaContainer isDisabled={isDisabled}>
+    <Box className={styles.container()}>
+      <Box className={styles.mediaContainer}>
         {getNftDisplayComponent(
           asset,
           mediaShouldBePlaying,
@@ -40,11 +41,28 @@ export const NftCard = ({
           renderedHeight,
           setRenderedHeight
         )}
-      </Card.MediaContainer>
+      </Box>
 
-      <Card.DetailsContainer>
-        <Card.PrimaryInfo>{asset.name ?? `#${asset.tokenId}`}</Card.PrimaryInfo>
-      </Card.DetailsContainer>
-    </Card.Container>
+      <Box className={styles.detailsContainer}>
+        <Text.Small className={styles.primaryInfo}>{asset.name ?? `#${asset.tokenId}`}</Text.Small>
+      </Box>
+    </Box>
   )
 }
+
+interface LoadingNftCardProps {
+  height?: number
+}
+
+export const LoadingNftCard = ({ height }: LoadingNftCardProps) => (
+  <Box className={styles.container()} background={'bg2'}>
+    <Box position={'relative'} width={'full'} style={{ height: height ? `${height}px` : 'auto' }} loading={true}>
+      <Box position={'absolute'} width={'full'} height={'full'} />
+      <Box as={'img'} src={SizingImage} width={'full'} opacity={'0'} draggable={false} />
+    </Box>
+
+    <Box className={styles.detailsContainer}>
+      <Text.Small loading={true} loadingWidth={'120'} />
+    </Box>
+  </Box>
+)

@@ -3,33 +3,13 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { sprinkles } from 'src/theme/css/sprinkles.css'
 
-export const mediaContainer = recipe({
-  base: style([
-    {
-      pointerEvents: 'auto',
-    },
-    sprinkles({
-      position: 'relative',
-    }),
-  ]),
-
-  variants: {
-    disabled: {
-      false: sprinkles({
-        opacity: {
-          hover: 'disabled',
-        },
-        cursor: {
-          hover: 'pointer',
-        },
-      }),
-    },
-  },
-
-  defaultVariants: {
-    disabled: false,
-  },
-})
+export const mediaContainer = style([
+  {},
+  sprinkles({
+    overflow: 'hidden',
+    position: 'relative',
+  })
+])
 
 export const container = recipe({
   base: [

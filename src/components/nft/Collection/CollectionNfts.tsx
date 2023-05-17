@@ -6,10 +6,10 @@ import { ASSET_PAGE_SIZE, AssetFetcherParams, useAssets } from 'src/graphql/data
 import Box from 'src/theme/components/Box'
 import Toggler from '../../Toggler'
 import * as styles from './CollectionNfts.css'
-import CollectionAsset from './CollectionAsset'
 import { UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { useIsMobile } from 'src/hooks/useIsMobile'
 import LoadingAssets from './CollectionAssetsLoading'
+import { NftCard } from '../Card'
 
 interface CollectionAssetsProps {
   contractAddress: string
@@ -39,7 +39,7 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
     if (!collectionAssets) return null
 
     return collectionAssets.map((asset) => (
-      <CollectionAsset
+      <NftCard
         key={asset.tokenId}
         asset={asset}
         isMobile={isMobile}
