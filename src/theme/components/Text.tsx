@@ -2,7 +2,7 @@ import Box, { BoxProps } from './Box'
 import { Sprinkles, sprinkles } from '../css/sprinkles.css'
 import clsx from 'clsx'
 
-interface TextProps extends BoxProps {
+export interface TextProps extends BoxProps {
   loadingWidth?: Sprinkles['width']
 }
 
@@ -12,6 +12,7 @@ const TextWrapper = ({ loadingWidth, loading, className, children, ...props }: T
       className,
       sprinkles({
         width: loadingWidth,
+        borderRadius: 'round',
       })
     )
     children = <>&nbsp;</>
@@ -25,6 +26,19 @@ const TextWrapper = ({ loadingWidth, loading, className, children, ...props }: T
 }
 
 export const Custom = TextWrapper
+
+export const Small = ({ className, ...props }: TextProps) =>
+  <TextWrapper
+    className={clsx(
+      className,
+      sprinkles({
+        fontWeight: 'normal',
+        color: 'text1',
+        fontSize: '14',
+      })
+    )}
+    {...props}
+  />
 
 export const Body = ({ className, ...props }: TextProps) =>
   <TextWrapper

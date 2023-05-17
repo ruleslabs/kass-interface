@@ -1,9 +1,8 @@
 import { useCallback } from 'react'
 
 import { KassAsset, UniformAspectRatio, UniformAspectRatios } from 'src/types'
-import { isAudio } from 'src/utils/nft/isAudio'
-import { isVideo } from 'src/utils/nft/isVideo'
 import { NftImage, NftPlayableMedia } from './media'
+import { isAudio, isVideo } from 'src/utils/nft/mimeType'
 
 enum AssetMediaType {
   Image,
@@ -12,15 +11,13 @@ enum AssetMediaType {
 }
 
 function getAssetMediaType(asset: KassAsset) {
-  let assetMediaType = AssetMediaType.Image
-  if (asset.animationUrl) {
-    if (isAudio(asset.animationUrl)) {
-      assetMediaType = AssetMediaType.Audio
-    } else if (isVideo(asset.animationUrl)) {
-      assetMediaType = AssetMediaType.Video
-    }
+  if (isAudio(asset.animationMimeType)) {
+    return AssetMediaType.Audio
+  } else if (isVideo(asset.animationMimeType)) {
+    return AssetMediaType.Video
   }
-  return assetMediaType
+
+  return AssetMediaType.Image
 }
 
 export function getNftDisplayComponent(

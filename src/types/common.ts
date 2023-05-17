@@ -12,5 +12,6 @@ export interface KassAsset {
   tokenId: string
   imageUrl: string
   animationUrl: string
+  animationMimeType: string
   quantity: number
 }

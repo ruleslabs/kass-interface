@@ -9,6 +9,7 @@ import * as styles from './CollectionNfts.css'
 import CollectionAsset from './CollectionAsset'
 import { UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { useIsMobile } from 'src/hooks/useIsMobile'
+import LoadingAssets from './CollectionAssetsLoading'
 
 interface CollectionAssetsProps {
   contractAddress: string
@@ -23,7 +24,8 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
   const assetQueryParams: AssetFetcherParams = {
     filter: {
       collectionAddress: contractAddress,
-      ownerAddress: '0x2fddb6f7a1e0203179f682b26c13ad46a78dd43db8748a462928ff2c4adf635'
+      ownerAddress: '0x2fddb6f7a1e0203179f682b26c13ad46a78dd43db8748a462928ff2c4adf635', // rules
+      // ownerAddress: '0x0004b6767aea46adba81b673177c30dcad9cfc719aaf6487c03f8319389a1548', // briq
     },
     first: ASSET_PAGE_SIZE,
   }
@@ -35,6 +37,7 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
 
   const assets = useMemo(() => {
     if (!collectionAssets) return null
+
     return collectionAssets.map((asset) => (
       <CollectionAsset
         key={asset.tokenId}
@@ -56,24 +59,26 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
   }, [contractAddress])
 
   return (
-    <>
+    <Box>
       <Toggler modes={['Ethereum', 'Starknet']} />
 
       <Box marginTop={'32'}>
         {loading ? (
-          <></>
+          <Box className={styles.assetsGrid}>
+            <LoadingAssets height={renderedHeight} />
+          </Box>
         ) : (
           <InfiniteScroll
             next={loadMore}
             hasMore={hasNext ?? false}
             dataLength={collectionAssets?.length ?? 0}
-            loader={null}
+            loader={hasNext && <LoadingAssets height={renderedHeight} />}
             className={styles.assetsGrid}
           >
             {assets}
           </InfiniteScroll>
         )}
       </Box>
-    </>
+    </Box>
   )
 }

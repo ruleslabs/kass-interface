@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import gql from 'graphql-tag'
 
-import { Asset, AssetsFilterInput, AssetsQueryVariables, useAssetsQuery } from './__generated__/types-and-hooks'
+import { Asset, AssetEdge, AssetsFilterInput, AssetsQueryVariables, useAssetsQuery } from './__generated__/types-and-hooks'
 import { KassAsset } from 'src/types'
 
 gql`
@@ -19,22 +19,28 @@ gql`
         endCursor
         hasNextPage
       }
-      nodes {
-        name
-        quantity
-        tokenId
-        imageUrl
-        animationUrl
+      edges {
+        node {
+          name
+          quantity
+          tokenId
+          imageUrl
+          animation {
+            url
+            mimeType
+          }
+        }
       }
     }
   }
 `
 
-export function formatAssetQueryData(queryAsset: NonNullable<Asset>): KassAsset {
+export function formatAssetQueryData({ node: queryAsset }: NonNullable<AssetEdge>): KassAsset {
   return {
     name: queryAsset.name,
     imageUrl: queryAsset.imageUrl ?? '',
-    animationUrl: queryAsset.animationUrl ?? '',
+    animationUrl: queryAsset.animation?.url ?? '',
+    animationMimeType: queryAsset.animation?.mimeType ?? '',
     tokenId: queryAsset.tokenId,
     quantity: queryAsset.quantity,
   }
@@ -64,15 +70,15 @@ export function useAssets(params: AssetFetcherParams, skip?: boolean) {
           after: data?.assets?.pageInfo?.endCursor,
         },
       }),
-    [data, fetchMore]
+    [data?.assets?.pageInfo?.endCursor, fetchMore]
   )
 
   const assets: KassAsset[] | undefined = useMemo(
     () =>
-      data?.assets?.nodes?.map((queryAsset: NonNullable<Asset>) => {
+      data?.assets?.edges?.map((queryAsset: NonNullable<AssetEdge>) => {
         return formatAssetQueryData(queryAsset)
       }),
-    [data?.assets?.nodes, data?.assets]
+    [data?.assets?.edges, data?.assets]
   )
 
   return useMemo(() => {

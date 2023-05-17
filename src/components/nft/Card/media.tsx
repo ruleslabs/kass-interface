@@ -34,7 +34,7 @@ export function NftImage({
     <Row className={styles.mediaContainer}>
       <Box
         as={'img'}
-        className={styles.image}
+        className={styles.image()}
         src={src}
         loading={!loaded}
         draggable={false}
@@ -92,6 +92,7 @@ export const NftPlayableMedia = ({
       <Row className={styles.mediaContainer}>
         <Box
           as={'img'}
+          className={styles.image()}
           src={src}
           loading={!imageLoaded}
           draggable={false}
@@ -105,7 +106,7 @@ export const NftPlayableMedia = ({
       </Row>
       {shouldPlay ? (
         <>
-          <Box className={styles.playbackButton}>
+          <Box className={styles.playbackButton({ pauseButton: true })}>
             <Pause
               size={'24px'}
               onClick={(e) => {
@@ -147,7 +148,7 @@ export const NftPlayableMedia = ({
           </Row>
         </>
       ) : (
-        <Box className={styles.playbackButton}>
+        <Box className={styles.playbackButton()}>
           <Play
             size={'24px'}
             onClick={(e) => {

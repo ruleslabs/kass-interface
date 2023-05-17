@@ -16,6 +16,15 @@ const colors = {
   vibrantPurple: '#9F04DC',
 }
 
+export const fontSizes = {
+  '0': '0',
+  '14': '14px',
+  '16': '16px',
+  '18': '18px',
+  '24': '24px',
+  '32': '32px',
+}
+
 export const times = {
   slow: '500ms',
   medium: '250ms',
@@ -61,13 +70,7 @@ const themeContractValues = {
     '10': null,
     'round': null,
   },
-  fontSize: {
-    '0': null,
-    '16': null,
-    '18': null,
-    '24': null,
-    '32': null,
-  },
+  fontSize: nullify(fontSizes),
   fontWeight: {
     normal: null,
     medium: null,
@@ -117,6 +120,7 @@ export const dimensions = {
   '100': '100px',
   '120': '120px',
   '140': '140px',
+  '250': '250px',
   '276': '276px',
   '288': '288px',
   '292': '292px',
@@ -205,13 +209,7 @@ createGlobalTheme(':root', vars, {
     '10': '10px',
     'round': '9999px',
   },
-  fontSize: {
-    '0': '0',
-    '16': '16px',
-    '18': '18px',
-    '24': '24px',
-    '32': '32px',
-  },
+  fontSize: fontSizes,
   fontWeight: {
     normal: '400',
     medium: '500',

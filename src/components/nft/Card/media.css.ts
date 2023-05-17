@@ -3,6 +3,7 @@ import { recipe } from '@vanilla-extract/recipes'
 
 import { breakpoints, sprinkles } from 'src/theme/css/sprinkles.css'
 import { vars } from 'src/theme/css/vars.css'
+import { container } from './containers.css'
 
 export const mediaContainer = sprinkles({
   overflow: 'hidden',
@@ -12,7 +13,11 @@ export const image = recipe({
   base: style([
     {
       transition: `${vars.time.medium} ${vars.timing.ease} transform`,
-      willChange: 'transform',
+      selectors: {
+        [`${container().split(' ')[0]}:hover &`]: {
+          transform: 'scale(1.15)',
+        },
+      },
     },
     sprinkles({
       width: 'full',
@@ -23,7 +28,7 @@ export const image = recipe({
   variants: {
     hidden: {
       true: sprinkles({ visibility: 'hidden' }),
-      false: sprinkles({ visibility: 'hidden' }),
+      false: sprinkles({ visibility: 'visible' }),
     }
   },
 
@@ -97,7 +102,6 @@ export const noContentContainerBackground = style([
   sprinkles({
     position: 'relative',
     width: 'full',
-    paddingTop: 'full',
   })
 ])
 

@@ -1,6 +1,7 @@
 import { KassAsset, UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { getNftDisplayComponent } from './utils'
-import * as styles from './style.css'
+import * as Card from './containers'
+import * as Text from 'src/theme/components/Text'
 import Box from 'src/theme/components/Box'
 
 interface NftCardProps {
@@ -28,8 +29,8 @@ export const NftCard = ({
   setCurrentTokenPlayingMedia,
 }: NftCardProps) => {
   return (
-    <Box className={styles.cardContainer} draggable={false}>
-      <Box className={styles.mediaContainer({ disabled: isDisabled })}>
+    <Card.Container>
+      <Card.MediaContainer isDisabled={isDisabled}>
         {getNftDisplayComponent(
           asset,
           mediaShouldBePlaying,
@@ -39,26 +40,11 @@ export const NftCard = ({
           renderedHeight,
           setRenderedHeight
         )}
-      </Box>
+      </Card.MediaContainer>
 
-      {/* <Card.DetailsRelativeContainer>
-        <Card.DetailsContainer>
-          <Card.InfoContainer>
-            <Card.PrimaryRow>
-              <Card.PrimaryDetails>
-                <Card.PrimaryInfo>{display.primaryInfo}</Card.PrimaryInfo>
-                {display.primaryInfoIcon}
-              </Card.PrimaryDetails>
-              {display.primaryInfoRight}
-            </Card.PrimaryRow>
-            <Card.SecondaryRow>
-              <Card.SecondaryDetails>
-                <Card.SecondaryInfo>{display.secondaryInfo}</Card.SecondaryInfo>
-              </Card.SecondaryDetails>
-            </Card.SecondaryRow>
-          </Card.InfoContainer>
-        </Card.DetailsContainer>
-      </Card.DetailsRelativeContainer> */}
-    </Box>
+      <Card.DetailsContainer>
+        <Card.PrimaryInfo>{asset.name ?? `#${asset.tokenId}`}</Card.PrimaryInfo>
+      </Card.DetailsContainer>
+    </Card.Container>
   )
 }
