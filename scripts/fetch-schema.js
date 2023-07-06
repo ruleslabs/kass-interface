@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-env node */
 
-require('dotenv').config({ path: '.env' })
+require('dotenv').config({ path: '.env.development' })
 const child_process = require('child_process')
 const fs = require('fs/promises')
 const { promisify } = require('util')
@@ -9,6 +10,7 @@ const dataConfig = require('../graphql.config')
 const exec = promisify(child_process.exec)
 
 function fetchSchema(url, outputFile) {
+  console.log(url)
   exec(`npx get-graphql-schema ${url}`)
     .then(({ stderr, stdout }) => {
       if (stderr) {
@@ -23,4 +25,4 @@ function fetchSchema(url, outputFile) {
     })
 }
 
-fetchSchema(process.env.REACT_APP_API_ENDPOINT, dataConfig.schema)
+fetchSchema(process.env.REACT_APP_GRAPHQL_URI, dataConfig.schema)

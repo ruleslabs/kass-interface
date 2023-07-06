@@ -8,21 +8,27 @@ export enum ModalType {
   L2_WALLET_OVERVIEW,
 }
 
-export interface ApplicationSlice {
-  modal: ModalType | null
+export type ApplicationSlice = State & Actions
 
+export interface State {
+  modal: ModalType | null
+}
+
+export interface Actions {
   isModalOpened: (modal: ModalType) => boolean
   openModal: (modal: ModalType) => void
   closeModals: () => void
   toggleModal: (modal: ModalType) => void
 }
 
-export const createApplicationSlice: StateCreator<StoreState, [], [], ApplicationSlice> =
-  (set, get) => ({
-      modal: null,
+export const createApplicationSlice: StateCreator<StoreState, [['zustand/immer', never]], [], ApplicationSlice> = (
+  set,
+  get
+) => ({
+  modal: null,
 
-      isModalOpened: (modal) => get().modal === modal,
-      openModal: (modal) => set({ modal }),
-      closeModals: () => set({ modal: null }),
-      toggleModal: (modal: ModalType) => set((state) => ({ modal: modal === state.modal ? null : modal })),
-  })
+  isModalOpened: (modal) => get().modal === modal,
+  openModal: (modal) => set({ modal }),
+  closeModals: () => set({ modal: null }),
+  toggleModal: (modal: ModalType) => set((state) => ({ modal: modal === state.modal ? null : modal })),
+})

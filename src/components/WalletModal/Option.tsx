@@ -14,7 +14,7 @@ interface OptionProps {
 function Option({ connection, activate }: OptionProps) {
   return (
     <Row gap={'12'} className={styles.option} onClick={activate}>
-      <img width={32} height={32} src={connection.getIcon!()} />
+      <img width={32} height={32} src={connection.getIcon?.()} />
       <Text.Body>{connection.getName()}</Text.Body>
     </Row>
   )

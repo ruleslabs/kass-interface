@@ -34,11 +34,15 @@ const flexAlignment = [
 const layoutStyles = defineProperties({
   conditions: {
     xs: {},
-    ...(Object.keys(breakpoints) as (keyof typeof breakpoints)[])
-      .reduce<{ [key in keyof typeof breakpoints]: { '@media': string } }>((acc, key) => ({
+    ...(Object.keys(breakpoints) as (keyof typeof breakpoints)[]).reduce<{
+      [key in keyof typeof breakpoints]: { '@media': string }
+    }>(
+      (acc, key) => ({
         ...acc,
         [key]: { '@media': `screen and (min-width: ${breakpoints[key]}px)` },
-      }), {} as any),
+      }),
+      {} as any
+    ),
   },
   defaultCondition: 'sm',
   properties: {

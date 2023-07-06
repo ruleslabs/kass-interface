@@ -6,7 +6,6 @@ export const assetsGrid = style([
   sprinkles({
     display: 'grid',
     gap: { sm: '8', md: '8', lg: '12', xl: '16' },
-
   }),
   {
     //This treatment of the grid still uses minmax, but enforces an amount of grid items per breakpoint.

@@ -47,7 +47,7 @@ export function formatCollectionQueryData(
         default:
           return null
       }
-    }
+    },
   }
 }
 
@@ -59,7 +59,7 @@ interface useCollectionReturnProps {
 export function useCollection(address: string, skip?: boolean): useCollectionReturnProps {
   const { data: queryData, loading } = useCollectionQuery({
     variables: {
-      address: address,
+      address,
     },
     skip,
   })

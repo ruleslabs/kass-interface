@@ -1,5 +1,4 @@
 import { recipe } from '@vanilla-extract/recipes'
-import { borderWidth } from 'polished'
 import { sprinkles } from 'src/theme/css/sprinkles.css'
 import { vars } from 'src/theme/css/vars.css'
 
@@ -14,7 +13,7 @@ export const togglerButton = recipe({
   base: [
     {
       '::after': {
-        content: "",
+        content: '',
         left: '0',
         right: '0',
         position: 'absolute',
@@ -28,7 +27,7 @@ export const togglerButton = recipe({
       fontSize: '16',
       fontWeight: 'semibold',
       paddingBottom: '8',
-    })
+    }),
   ],
 
   variants: {
@@ -37,11 +36,11 @@ export const togglerButton = recipe({
         {
           '::after': {
             backgroundColor: vars.color.text1,
-          }
+          },
         },
         sprinkles({
           color: 'text1',
-        })
+        }),
       ],
       false: sprinkles({
         color: 'text2',

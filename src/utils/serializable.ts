@@ -3,7 +3,7 @@
 export default function isPlainObject(value: unknown): value is object {
   if (typeof value !== 'object' || value === null) return false
 
-  let proto = Object.getPrototypeOf(value)
+  const proto = Object.getPrototypeOf(value)
   if (proto === null) return true
 
   let baseProto = proto

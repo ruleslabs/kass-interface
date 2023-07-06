@@ -4,15 +4,16 @@ import { Web3ReactHooks, initializeConnector } from '@web3-react/core'
 import { MetaMask } from '@web3-react/metamask'
 import { Network } from '@web3-react/network'
 import { Connector } from '@web3-react/types'
+import { constants } from '@rulesorg/sdk-core'
+import { InjectedConnector } from '@starknet-react/core'
+
 import COINBASE_WALLET_ICON from 'src/assets/coinbase-wallet.svg'
 import ARGENT_X_ICON from 'src/assets/argent-x.svg'
 import BRAAVOS_ICON from 'src/assets/braavos.svg'
 import METAMASK_ICON from 'src/assets/metamask.svg'
 import WALLET_CONNECT_ICON from 'src/assets/wallet-connect.svg'
 import RULES_LOGO from 'src/assets/logo.svg'
-import { EthereumChainId } from 'src/constants/chains'
 import { isMobile } from 'src/utils/userAgent'
-
 import { RPC_URLS } from 'src/constants/networks'
 import { RPC_PROVIDERS } from 'src/constants/providers'
 import {
@@ -25,7 +26,6 @@ import {
   getShouldAdvertiseMetaMask,
 } from './utils'
 import { WalletConnectPopup } from './WalletConnect'
-import { InjectedConnector } from '@starknet-react/core'
 
 export enum ConnectionType {
   INJECTED = 'INJECTED',
@@ -118,7 +118,7 @@ const [web3CoinbaseWallet, web3CoinbaseWalletHooks] = initializeConnector<Coinba
     new CoinbaseWallet({
       actions,
       options: {
-        url: RPC_URLS[EthereumChainId.MAINNET][0],
+        url: RPC_URLS[constants.EthereumChainId.MAINNET][0],
         appName: 'Kass',
         appLogoUrl: RULES_LOGO,
         reloadOnDisconnect: false,
@@ -188,19 +188,11 @@ const braavosWalletConnection: L2Connection = {
 // GETTERS
 
 export function getL1Connections() {
-  return [
-    injectedConnection,
-    walletConnectConnection,
-    coinbaseWalletConnection,
-    networkConnection,
-  ]
+  return [injectedConnection, walletConnectConnection, coinbaseWalletConnection, networkConnection]
 }
 
 export function getL2Connections() {
-  return [
-    argentXWalletConnection,
-    braavosWalletConnection,
-  ]
+  return [argentXWalletConnection, braavosWalletConnection]
 }
 
 export function useGetL1Connection() {

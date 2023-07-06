@@ -1,20 +1,12 @@
 import { useCallback, useMemo } from 'react'
 import gql from 'graphql-tag'
 
-import { Asset, AssetEdge, AssetsFilterInput, AssetsQueryVariables, useAssetsQuery } from './__generated__/types-and-hooks'
+import { AssetEdge, AssetsFilterInput, AssetsQueryVariables, useAssetsQuery } from './__generated__/types-and-hooks'
 import { KassAsset } from 'src/types'
 
 gql`
-  query Assets(
-    $filter: AssetsFilterInput!,
-    $after: String,
-    $first: Int
-  ) {
-    assets(
-      filter: $filter
-      after: $after
-      first: $first
-    ) {
+  query Assets($filter: AssetsFilterInput!, $after: String, $first: Int) {
+    assets(filter: $filter, after: $after, first: $first) {
       pageInfo {
         endCursor
         hasNextPage

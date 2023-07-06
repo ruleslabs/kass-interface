@@ -52,7 +52,7 @@ export const secondaryButton = recipe({
         hover: 'text1',
       },
       transitionDuration: 'fast',
-    })
+    }),
   ],
 
   variants: {
@@ -64,5 +64,5 @@ export const secondaryButton = recipe({
 
   defaultVariants: {
     withIcon: false,
-  }
+  },
 })

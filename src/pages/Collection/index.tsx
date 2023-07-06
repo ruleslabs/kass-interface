@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useMatch } from 'react-router-dom'
 
 import { useCollection } from 'src/graphql/data/Collection'
@@ -11,8 +11,8 @@ import CollectionAssets from 'src/components/nft/Collection/CollectionNfts'
 import Image from 'src/theme/components/Image'
 
 export default function CollectionPage() {
-  const [bannerLoaded, setBannerLoaded] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
+  // const [bannerLoaded, setBannerLoaded] = useState(false)
+  // const [imageLoaded, setImageLoaded] = useState(false)
 
   const match = useMatch('/collection/:address')
   const collectionAddress = useMemo(() => {
@@ -38,9 +38,7 @@ export default function CollectionPage() {
 
       <Column className={styles.collectionBodyContainer} gap={'48'} marginTop={'48'} paddingBottom={'32'}>
         <Row gap={'16'}>
-          <Box className={styles.networkIcon}>
-            {collection.getNativeLayerIcon()}
-          </Box>
+          <Box className={styles.networkIcon}>{collection.getNativeLayerIcon()}</Box>
           <Text.HeadlineLarge loadingWidth={'276'} loading={!collection.name}>
             {collection.name}
           </Text.HeadlineLarge>

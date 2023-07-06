@@ -8,7 +8,7 @@ export const mediaContainer = style([
   sprinkles({
     overflow: 'hidden',
     position: 'relative',
-  })
+  }),
 ])
 
 export const container = recipe({

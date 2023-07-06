@@ -1,4 +1,4 @@
-import { EthereumChainId } from './chains'
+import { constants } from '@rulesorg/sdk-core'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
 if (typeof INFURA_KEY === 'undefined') {
@@ -16,7 +16,7 @@ if (typeof INFURA_KEY === 'undefined') {
  * These "Safe" URLs are listed first, followed by other fallback URLs, which are taken from chainlist.org.
  */
 export const FALLBACK_URLS = {
-  [EthereumChainId.MAINNET]: [
+  [constants.EthereumChainId.MAINNET]: [
     // "Safe" URLs
     'https://api.mycryptoapi.com/eth',
     'https://cloudflare-eth.com',
@@ -24,7 +24,7 @@ export const FALLBACK_URLS = {
     'https://rpc.ankr.com/eth',
     'https://eth-mainnet.public.blastapi.io',
   ],
-  [EthereumChainId.GOERLI]: [
+  [constants.EthereumChainId.GOERLI]: [
     // "Safe" URLs
     'https://rpc.goerli.mudit.blog/',
     // "Fallback" URLs
@@ -37,9 +37,12 @@ export const FALLBACK_URLS = {
  * These are the URLs used by the interface when there is not another available source of chain data.
  */
 export const RPC_URLS = {
-  [EthereumChainId.MAINNET]: [
+  [constants.EthereumChainId.MAINNET]: [
     `https://mainnet.infura.io/v3/${INFURA_KEY}`,
-    ...FALLBACK_URLS[EthereumChainId.MAINNET],
+    ...FALLBACK_URLS[constants.EthereumChainId.MAINNET],
   ],
-  [EthereumChainId.GOERLI]: [`https://goerli.infura.io/v3/${INFURA_KEY}`, ...FALLBACK_URLS[EthereumChainId.GOERLI]],
+  [constants.EthereumChainId.GOERLI]: [
+    `https://goerli.infura.io/v3/${INFURA_KEY}`,
+    ...FALLBACK_URLS[constants.EthereumChainId.GOERLI],
+  ],
 }

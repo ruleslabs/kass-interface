@@ -5,16 +5,14 @@ import { breakpoints, sprinkles } from 'src/theme/css/sprinkles.css'
 import { vars } from 'src/theme/css/vars.css'
 import { container, mediaContainer } from './style.css'
 
-const mediaScaleOnHover = style(
-  {
-    transition: `${vars.time.medium} ${vars.timing.ease} transform`,
-    selectors: {
-      [`${container().split(' ')[0]}:hover &`]: {
-        transform: 'scale(1.15)',
-      },
+const mediaScaleOnHover = style({
+  transition: `${vars.time.medium} ${vars.timing.ease} transform`,
+  selectors: {
+    [`${container().split(' ')[0]}:hover &`]: {
+      transform: 'scale(1.15)',
     },
-  }
-)
+  },
+})
 
 export const image = recipe({
   base: style([
@@ -69,7 +67,7 @@ export const playbackButton = recipe({
       right: '8',
       borderRadius: '10',
       background: 'bg1Transparent',
-    })
+    }),
   ],
 
   variants: {
@@ -80,8 +78,8 @@ export const playbackButton = recipe({
   },
 
   defaultVariants: {
-    pauseButton: false
-  }
+    pauseButton: false,
+  },
 })
 
 export const audio = sprinkles({
@@ -111,7 +109,8 @@ export const noContentContainerBackground = style([
   sprinkles({
     position: 'relative',
     width: 'full',
-  })
+    display: 'flex',
+  }),
 ])
 
 export const noContentText = style([
@@ -124,5 +123,5 @@ export const noContentText = style([
     left: '1/2',
     top: '1/2',
     color: 'text2',
-  })
+  }),
 ])

@@ -43,18 +43,22 @@ function WalletConnectContent() {
         <Column gap={'8'}>
           {l1Connections
             .filter((connection) => connection.shouldDisplay())
-            .map((connection) => <L1Option key={connection.getName()} connection={connection} />)}
+            .map((connection) => (
+              <L1Option key={connection.getName()} connection={connection} />
+            ))}
         </Column>
       </Content>
     )
   } else {
     return (
       <Content title={'Connect Starknet wallet'} close={toggle}>
-      <Column gap={'8'}>
-        {l2Connections
-          .filter((connection) => connection.shouldDisplay())
-          .map((connection) => <L2Option key={connection.getName()} connection={connection} />)}
-      </Column>
+        <Column gap={'8'}>
+          {l2Connections
+            .filter((connection) => connection.shouldDisplay())
+            .map((connection) => (
+              <L2Option key={connection.getName()} connection={connection} />
+            ))}
+        </Column>
       </Content>
     )
   }

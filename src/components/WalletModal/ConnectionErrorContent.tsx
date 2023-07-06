@@ -1,4 +1,3 @@
-import Box from 'src/theme/components/Box'
 import { PrimaryButton, SecondaryButton } from '../Button'
 import * as Text from 'src/theme/components/Text'
 import { ActivationStatus } from 'src/state/l1Wallet'
@@ -19,7 +18,7 @@ export default function ConnectionErrorContent() {
   if (activationState.status !== ActivationStatus.ERROR || !activationState.connection) return null
 
   // idk why ts cannot detect that connection cannot be null at this point of the code :/
-  const retry = () => tryActivation(activationState.connection!, noop)
+  const retry = () => activationState.connection && tryActivation(activationState.connection, noop)
 
   return (
     <Content title={'Error connecting'} close={toggle}>

@@ -27,7 +27,7 @@ const TextWrapper = ({ loadingWidth, loading, className, children, ...props }: T
 
 export const Custom = TextWrapper
 
-export const Small = ({ className, ...props }: TextProps) =>
+export const Small = ({ className, ...props }: TextProps) => (
   <TextWrapper
     className={clsx(
       className,
@@ -39,8 +39,9 @@ export const Small = ({ className, ...props }: TextProps) =>
     )}
     {...props}
   />
+)
 
-export const Body = ({ className, ...props }: TextProps) =>
+export const Body = ({ className, ...props }: TextProps) => (
   <TextWrapper
     className={clsx(
       className,
@@ -52,8 +53,9 @@ export const Body = ({ className, ...props }: TextProps) =>
     )}
     {...props}
   />
+)
 
-export const Link = ({ className, ...props }: TextProps) =>
+export const Link = ({ className, ...props }: TextProps) => (
   <TextWrapper
     className={clsx(
       className,
@@ -69,18 +71,23 @@ export const Link = ({ className, ...props }: TextProps) =>
     )}
     {...props}
   />
+)
 
-  export const HeadlineSmall = ({ className, ...props }: TextProps) =>
-    <TextWrapper
-      className={sprinkles({
+export const HeadlineSmall = ({ className, ...props }: TextProps) => (
+  <TextWrapper
+    className={clsx(
+      className,
+      sprinkles({
         fontWeight: 'medium',
         color: 'text1',
         fontSize: '18',
-      })}
-      {...props}
-    />
+      })
+    )}
+    {...props}
+  />
+)
 
-export const HeadlineMedium = ({ className, ...props }: TextProps) =>
+export const HeadlineMedium = ({ className, ...props }: TextProps) => (
   <TextWrapper
     className={clsx(
       className,
@@ -92,8 +99,9 @@ export const HeadlineMedium = ({ className, ...props }: TextProps) =>
     )}
     {...props}
   />
+)
 
-export const HeadlineLarge = ({ className, ...props }: TextProps) =>
+export const HeadlineLarge = ({ className, ...props }: TextProps) => (
   <TextWrapper
     className={clsx(
       className,
@@ -105,3 +113,4 @@ export const HeadlineLarge = ({ className, ...props }: TextProps) =>
     )}
     {...props}
   />
+)

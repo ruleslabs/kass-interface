@@ -7,7 +7,11 @@ interface LoadingAssetsProps {
 }
 
 const LoadingAssets = ({ count = ASSET_PAGE_SIZE, height }: LoadingAssetsProps) => (
-  <>{Array.from(Array(count), (_, index) => <LoadingNftCard key={index} height={height} />)}</>
+  <>
+    {Array.from(Array(count), (_, index) => (
+      <LoadingNftCard key={index} height={height} />
+    ))}
+  </>
 )
 
 export default LoadingAssets

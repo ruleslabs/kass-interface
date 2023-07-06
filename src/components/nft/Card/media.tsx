@@ -8,6 +8,7 @@ import { UniformAspectRatio, UniformAspectRatios } from 'src/types'
 import { getHeightFromAspectRatio, getMediaAspectRatio, handleUniformAspectRatio } from './utils'
 import { Row } from 'src/theme/components/Flex'
 import Image from 'src/theme/components/Image'
+import SizingImage from 'src/assets/sizingImage.png'
 
 interface NftImageProps {
   src?: string
@@ -159,6 +160,7 @@ export const NftPlayableMedia = ({
 
 const NoContentContainer = ({ height }: { height?: number }) => (
   <Box className={styles.noContentContainerBackground} style={{ height: height ? `${height}px` : 'auto' }}>
+    {!height && <Box as={'img'} src={SizingImage} width={'full'} opacity={'0'} draggable={false} />}
     <Text.Custom className={styles.noContentText}>
       Content not
       <br />

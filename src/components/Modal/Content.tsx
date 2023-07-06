@@ -17,7 +17,7 @@ export default function Content({ children, title, close }: ContentProps) {
         <Row justifyContent={'space-between'}>
           <Text.HeadlineSmall>{title}</Text.HeadlineSmall>
 
-          <Box className={styles.closeContainer} >
+          <Box className={styles.closeContainer}>
             <Icons.Close onClick={close} />
           </Box>
         </Row>

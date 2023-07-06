@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 // Inspired by https://github.com/Uniswap/interface/blob/main/src/nft/components/Box.ts
 
 import React from 'react'
@@ -12,8 +13,8 @@ type HTMLProperties<T = HTMLElement> = Omit<
 >
 
 interface Props extends Sprinkles, HTMLProperties {
-  as?: React.ElementType,
-  className?: ClassValue,
+  as?: React.ElementType
+  className?: ClassValue
   loading?: boolean
 }
 

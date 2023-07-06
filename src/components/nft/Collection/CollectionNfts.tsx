@@ -7,7 +7,6 @@ import Box from 'src/theme/components/Box'
 import Toggler from '../../Toggler'
 import * as styles from './CollectionNfts.css'
 import { UniformAspectRatio, UniformAspectRatios } from 'src/types'
-import { useIsMobile } from 'src/hooks/useIsMobile'
 import LoadingAssets from './CollectionAssetsLoading'
 import { NftCard } from '../Card'
 
@@ -33,7 +32,6 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
   const { data: collectionAssets, loading, hasNext, loadMore } = useAssets(assetQueryParams, !address)
 
   const [currentTokenPlayingMedia, setCurrentTokenPlayingMedia] = useState<string | undefined>()
-  const isMobile = useIsMobile()
 
   const assets = useMemo(() => {
     if (!collectionAssets) return null
@@ -42,7 +40,6 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
       <NftCard
         key={asset.tokenId}
         asset={asset}
-        isMobile={isMobile}
         mediaShouldBePlaying={asset.tokenId === currentTokenPlayingMedia}
         setCurrentTokenPlayingMedia={setCurrentTokenPlayingMedia}
         uniformAspectRatio={uniformAspectRatio}
@@ -51,7 +48,7 @@ export default function CollectionAssets({ contractAddress }: CollectionAssetsPr
         setRenderedHeight={setRenderedHeight}
       />
     ))
-  }, [collectionAssets, isMobile, currentTokenPlayingMedia, uniformAspectRatio, renderedHeight])
+  }, [collectionAssets, currentTokenPlayingMedia, uniformAspectRatio, renderedHeight])
 
   useEffect(() => {
     setUniformAspectRatio(UniformAspectRatios.unset)

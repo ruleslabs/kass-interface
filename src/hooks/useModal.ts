@@ -5,18 +5,16 @@ import { useBoundStore } from 'src/state'
 import { ModalType } from 'src/state/application'
 
 export function useCloseModal(): () => void {
-  const { closeModals } = useBoundStore(
-    (state) => ({ closeModals: state.closeModals }),
-    shallow
-  )
+  const { closeModals } = useBoundStore((state) => ({ closeModals: state.closeModals }), shallow)
 
   return closeModals
 }
 
 export default function useModal(modal: ModalType): [boolean, () => void] {
-  const { toggleModal, isModalOpened } = useBoundStore(
-    (state) => ({ toggleModal: state.toggleModal, isModalOpened: state.isModalOpened }),
-  )
+  const { toggleModal, isModalOpened } = useBoundStore((state) => ({
+    toggleModal: state.toggleModal,
+    isModalOpened: state.isModalOpened,
+  }))
 
   const isOpen = isModalOpened(modal)
   const toggle = useCallback(() => toggleModal(modal), [modal, toggleModal])

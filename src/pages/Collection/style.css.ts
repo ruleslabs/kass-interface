@@ -1,5 +1,4 @@
 import { style } from '@vanilla-extract/css'
-import { recipe } from '@vanilla-extract/recipes'
 import { sprinkles } from 'src/theme/css/sprinkles.css'
 
 export const collectionHeaderContainer = sprinkles({
@@ -30,6 +29,7 @@ export const image = style([
     height: '140',
     position: 'absolute',
     left: '72',
+    background: 'white',
   }),
 ])
 

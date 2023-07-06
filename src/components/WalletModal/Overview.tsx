@@ -1,16 +1,15 @@
 import { useCallback } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import { shallow } from 'zustand/shallow'
+import { useConnectors, useNetwork } from '@starknet-react/core'
 
 import Overlay from '../Modal/Overlay'
 import Portal from '../common/Portal'
 import Content from '../Modal/Content'
 import { useBoundStore } from 'src/state'
 import { getChainInfo } from 'src/constants/chainInfo'
-import Box from 'src/theme/components/Box'
 import { SecondaryButton } from '../Button'
 import { useL1WalletOverviewModal, useL2WalletOverviewModal, useCloseModal } from 'src/hooks/useModal'
-import { useAccount, useConnectors } from '@starknet-react/core'
 
 interface WalletOverviewModalProps {
   chainLabel?: string
@@ -29,7 +28,7 @@ function WalletOverviewModal({ chainLabel, disconnect }: WalletOverviewModalProp
 
   return (
     <Portal>
-      <Content title={`${chainLabel} wallet`} close={disconnectAndClose}>
+      <Content title={`${chainLabel} wallet`} close={close}>
         <SecondaryButton onClick={disconnectAndClose}>Disconnect</SecondaryButton>
       </Content>
 
@@ -52,7 +51,7 @@ export function L1WalletOverviewModal() {
     }
     connector.resetState()
 
-    selectL1Wallet()
+    selectL1Wallet(null)
   }, [connector, selectL1Wallet])
 
   // chain infos
@@ -72,8 +71,8 @@ export function L2WalletOverviewModal() {
   const { disconnect } = useConnectors()
 
   // chain infos
-  const { account } = useAccount()
-  const chainInfo = getChainInfo(account?.chainId)
+  const { chain } = useNetwork()
+  const chainInfo = getChainInfo(chain?.id)
 
   if (!isOpen) return null
 

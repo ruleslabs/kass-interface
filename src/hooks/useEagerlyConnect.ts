@@ -30,7 +30,7 @@ function useL1EagerlyConnect() {
     try {
       selectedConnection = getConnection(selectedL1Wallet)
     } catch {
-      selectL1Wallet()
+      selectL1Wallet(null)
     }
   }
 

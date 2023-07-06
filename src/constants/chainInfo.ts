@@ -1,6 +1,6 @@
+import { SupportedChainId, constants } from '@rulesorg/sdk-core'
 import ms from 'ms.macro'
 
-import { SupportedChainId, EthereumChainId, StarknetChainId } from './chains'
 import * as Icons from 'src/theme/components/Icons'
 
 export const AVERAGE_L1_BLOCK_TIME = ms`12s`
@@ -8,7 +8,7 @@ export const AVERAGE_L1_BLOCK_TIME = ms`12s`
 interface ChainInfo {
   readonly explorer: string
   readonly label: string
-  readonly icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element,
+  readonly icon: (props: React.SVGProps<SVGSVGElement>) => JSX.Element
   readonly nativeCurrency: {
     name: string // e.g. 'Goerli ETH',
     symbol: string // e.g. 'gorETH',
@@ -21,40 +21,34 @@ type ChainInfoMap = { readonly [chainId in SupportedChainId]: ChainInfo } & {
 }
 
 const CHAIN_INFO: ChainInfoMap = {
-  [EthereumChainId.MAINNET]: {
+  [constants.EthereumChainId.MAINNET]: {
     explorer: 'https://etherscan.io/',
     label: 'Ethereum',
     icon: Icons.Ethereum,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   },
-  [EthereumChainId.GOERLI]: {
+  [constants.EthereumChainId.GOERLI]: {
     explorer: 'https://goerli.etherscan.io/',
     label: 'Görli',
     icon: Icons.Ethereum,
     nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
   },
-  [StarknetChainId.MAINNET]: {
+  [constants.StarknetChainId.MAINNET]: {
     explorer: 'https://starkscan.co/',
     label: 'Starknet Mainnet',
     icon: Icons.Starknet,
     nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   },
-  [StarknetChainId.TESTNET]: {
+  [constants.StarknetChainId.GOERLI]: {
     explorer: 'https://testnet.starkscan.co/',
-    label: 'Starknet Görli',
-    icon: Icons.Starknet,
-    nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
-  },
-  [StarknetChainId.TESTNET2]: {
-    explorer: 'https://testnet-2.starkscan.co/',
     label: 'Starknet Görli',
     icon: Icons.Starknet,
     nativeCurrency: { name: 'Görli Ether', symbol: 'görETH', decimals: 18 },
   },
 }
 
-export function getChainInfo(chainId: EthereumChainId | number | undefined): ChainInfo | undefined
-export function getChainInfo(chainId: StarknetChainId | string | undefined): ChainInfo | undefined
+export function getChainInfo(chainId: constants.EthereumChainId | number | undefined): ChainInfo | undefined
+export function getChainInfo(chainId: constants.StarknetChainId | string | undefined): ChainInfo | undefined
 
 /**
  * Overloaded method for returning ChainInfo given a chainID

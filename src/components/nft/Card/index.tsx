@@ -7,7 +7,6 @@ import SizingImage from 'src/assets/sizingImage.png'
 
 interface NftCardProps {
   asset: KassAsset
-  isMobile: boolean
   mediaShouldBePlaying: boolean
   uniformAspectRatio?: UniformAspectRatio
   setUniformAspectRatio?: (uniformAspectRatio: UniformAspectRatio) => void
@@ -21,7 +20,6 @@ interface NftCardProps {
  */
 export const NftCard = ({
   asset,
-  isMobile,
   mediaShouldBePlaying,
   uniformAspectRatio = UniformAspectRatios.square,
   setUniformAspectRatio,

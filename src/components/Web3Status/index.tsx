@@ -10,7 +10,6 @@ import { L1WalletOverviewModal, L2WalletOverviewModal } from '../WalletModal/Ove
 import * as Icons from 'src/theme/components/Icons'
 import Box from 'src/theme/components/Box'
 import * as styles from './styles.css'
-import { style } from '@vanilla-extract/css'
 
 export function Web3StatusContent() {
   const { account: l1Account } = useWeb3React()
@@ -44,11 +43,7 @@ export function Web3StatusContent() {
       </Row>
     )
   } else {
-    return (
-      <PrimaryButton onClick={toggleWalletConnectModal}>
-        Connect wallet
-      </PrimaryButton>
-    )
+    return <PrimaryButton onClick={toggleWalletConnectModal}>Connect wallet</PrimaryButton>
   }
 }
 

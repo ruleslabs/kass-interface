@@ -5,13 +5,18 @@ import { StoreState } from './index'
 
 // selectedL2Wallet is already handled by @starknet-react/core
 
-export interface UserSlice {
-  selectedL1Wallet?: ConnectionType
+export type UserSlice = State & Actions
 
-  selectL1Wallet: (selectedL1Wallet?: ConnectionType) => void
+export interface State {
+  selectedL1Wallet: ConnectionType | null
 }
 
-export const createUserSlice: StateCreator<StoreState, [], [], UserSlice> =
-  (set) => ({
-    selectL1Wallet: (selectedL1Wallet) => set({ selectedL1Wallet }),
-  })
+export interface Actions {
+  selectL1Wallet: (selectedL1Wallet: ConnectionType | null) => void
+}
+
+export const createUserSlice: StateCreator<StoreState, [['zustand/immer', never]], [], UserSlice> = (set) => ({
+  selectedL1Wallet: null,
+
+  selectL1Wallet: (selectedL1Wallet) => set({ selectedL1Wallet }),
+})

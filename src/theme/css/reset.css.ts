@@ -25,5 +25,5 @@ const loading = style({
 })
 
 export const element = {
-  loading
+  loading,
 }

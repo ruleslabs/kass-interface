@@ -1,11 +1,20 @@
 import { style } from '@vanilla-extract/css'
 
 import { sprinkles } from 'src/theme/css/sprinkles.css'
+import { vars } from 'src/theme/css/vars.css'
 
-export const Nav = sprinkles({
-  position: 'sticky',
-  padding: '24',
-})
+export const Nav = style([
+  {
+    boxShadow: `0px 8px 16px 0 ${vars.color.bg1Transparent}`,
+  },
+  sprinkles({
+    position: 'sticky',
+    top: '0',
+    padding: '24',
+    background: 'bg1',
+    zIndex: 'sticky',
+  }),
+])
 
 export const logoContainer = sprinkles({
   color: 'text1',

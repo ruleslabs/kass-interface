@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import './theme/css/global.css'
 
 import React from 'react'
@@ -9,9 +10,12 @@ import { apolloClient } from './graphql/data/apollo'
 
 import App from './App'
 
-window.Buffer = window.Buffer || require("buffer").Buffer
+window.Buffer = window.Buffer || require('buffer').Buffer
 
-const root = createRoot(document.getElementById('root')!)
+const container = document.getElementById('root')
+if (!container) throw 'Undefined #root container'
+
+const root = createRoot(container)
 root.render(
   <StarknetProvider>
     <EthereumProvider>

@@ -11,11 +11,15 @@ export default function NavBar() {
   const navigate = useNavigate()
 
   return (
-    <nav className={styles.Nav}>
+    <Box as={'nav'} className={styles.Nav}>
       <Row>
         <Box className={styles.leftSideContainer}>
           <Box className={styles.logoContainer}>
-            <Icons.Logo onClick={() => { navigate({ pathname: '/' }) }} />
+            <Icons.Logo
+              onClick={() => {
+                navigate({ pathname: '/' })
+              }}
+            />
           </Box>
         </Box>
 
@@ -27,6 +31,6 @@ export default function NavBar() {
           <Web3Status />
         </Box>
       </Row>
-    </nav>
+    </Box>
   )
 }
